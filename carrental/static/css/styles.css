@@ -1,0 +1,23 @@
+.form-area {
+    margin-top: 30vh;
+    max-width: 500px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-background {
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.login-main {
+    background: url('http://www.hdcarwallpapers.com/walls/2015_toyota_avensis-wide.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
