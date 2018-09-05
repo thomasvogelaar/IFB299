@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from .models import Store
 
 
 def index(request):
@@ -14,7 +15,8 @@ def storelist(request):
 
 @login_required
 def storedetails(request, store_id):
-    return HttpResponse("This is the details page for store id %s." % store_id)
+    store = get_object_or_404(Store, pk=store_id)
+    return render(request, 'core/store_details.html', {'store': store})
 
 
 @login_required
