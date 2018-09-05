@@ -6,7 +6,7 @@ class State(Enum):
     QLD = "Queensland"
     NSW = "New South Wales"
     VIC = "Victoria"
-    ACT = "Australian Capital Territory",
+    ACT = "Australian Capital Territory"
     TAS = "Tasmania"
     NT = "Northern Territory"
     SA = "South Australia"
@@ -84,3 +84,4 @@ class Transaction(models.Model):
         choices = [(item, item.value) for item in TransactionType],
         default = "Pickup"
     )
+
