@@ -1,6 +1,7 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.views import generic
 from .models import Store
 
 
@@ -8,15 +9,17 @@ def index(request):
     return HttpResponse("Hello, world. You're at the core index.")
 
 
-@login_required
-def storelist(request):
-    return HttpResponse("This is the list of stores")
+class StoreListView(generic.ListView):
+    template_name = 'core/store_list.html'
+    context_object_name = 'store_list'
+    def get_queryset(self):
+        """Returns a list of stores"""
+        return Store.objects.all()
 
 
-@login_required
-def storedetails(request, store_id):
-    store = get_object_or_404(Store, pk=store_id)
-    return render(request, 'core/store_details.html', {'store': store})
+class StoreDetailView(generic.DetailView):
+    model = Store
+    template_name = 'core/store_details.html'
 
 
 @login_required
