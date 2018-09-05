@@ -2,13 +2,6 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 {% block content %}
-  {% if form.errors %}
-    <p>The username and password combination provided is not valid.</p>
-  {% endif %}
-
-  {% if next %}
-    <p>Please login to see this page.</p>
-  {% endif %}
 <div class="login-main">
   <div class="login-background">
     <form method="post" action="{% url 'login' %}">
@@ -16,7 +9,14 @@
       <div class="form-area">
         <input type="text" name="username" id="id_username" maxlength="254" required class="form-control mb-2" placeholder="Username">
         <input type="password" name="password" id="id_password" required class="form-control mb-2" placeholder="Password">
-        <div class="mt-1 mb-2 pt-3 pb-3"></div>
+        <div class="errorsection">
+          {% if form.errors %}
+            <p>The username and password combination provided is not valid.</p>
+          {% endif %}
+          {% if next %}
+            <p>Must be logged in to see this page.</p>
+          {% endif %}
+        </div>
         <input type="submit" value="login" class="btn btn-block btn-secondary"/>
         <input type="hidden" name="next" value="{{ next }}" />
       </div>

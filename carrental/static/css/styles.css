@@ -16,8 +16,14 @@
 }
 
 .login-main {
-    background: url('http://www.hdcarwallpapers.com/walls/2015_toyota_avensis-wide.jpg');
+    background: url('/static/images/loginbackground.jpg');
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;
+}
+
+.errorsection {
+    height: 2em;
+    color: red;
+    text-align: center;
 }
