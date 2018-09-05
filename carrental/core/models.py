@@ -1,6 +1,7 @@
 from django.db import models
 from enum import Enum
 
+
 # List of all possible states
 class State(Enum):
     QLD = "Queensland"
@@ -12,6 +13,7 @@ class State(Enum):
     SA = "South Australia"
     WA = "Western Australia"
 
+
 # List of all possible occupations
 class Occupation(Enum):
     LAB = "Labour"
@@ -21,15 +23,18 @@ class Occupation(Enum):
     RES = "Researcher"
     OTH = "Other"
 
+
 # List of all possible genders
 class Gender(Enum):
     MA = "Male"
     FE = "Female"
 
+
 # List of all possible transaction types
 class TransactionType(Enum):
     PIC = "Pickup"
     RET = "Return"
+
 
 # Represents a store in the system
 class Store(models.Model):
@@ -39,8 +44,11 @@ class Store(models.Model):
     city = models.CharField(max_length = 200)
     state = models.CharField(
         max_length = 40,
-        choices = [(item, item.value) for item in State]
+        choices = [(item.name, item.value) for item in State]
     )
+    def __str__(self):
+        return self.name
+
 
 # Represents a car in the system
 class Car(models.Model):
@@ -58,6 +66,7 @@ class Car(models.Model):
     drive = models.CharField(max_length = 50)
     wheelbase = models.CharField(max_length = 20)
 
+
 # Represents a customer in the system
 class Customer(models.Model):
     name = models.CharField(max_length = 100)
@@ -66,12 +75,13 @@ class Customer(models.Model):
     birthday = models.DateField()
     occupation = models.CharField(
         max_length = 20,
-        choices = [(item, item.value) for item in Occupation]
+        choices = [(item.name, item.value) for item in Occupation]
     )
     gender = models.CharField(
         max_length = 10,
-        choices = [(item, item.value) for item in Gender]
+        choices = [(item.name, item.value) for item in Gender]
     )
+
 
 # Represents a transaction within the system
 class Transaction(models.Model):
@@ -81,7 +91,6 @@ class Transaction(models.Model):
     time = models.DateTimeField()
     type = models.CharField(
         max_length = 10,
-        choices = [(item, item.value) for item in TransactionType],
+        choices = [(item.name, item.value) for item in TransactionType],
         default = "Pickup"
     )
-
