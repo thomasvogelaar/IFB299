@@ -5,8 +5,9 @@ from django.views import generic
 from .models import Store
 
 
+@login_required
 def index(request):
-    return HttpResponse("Hello, world. You're at the core index.")
+    return render(request, 'core/index.html')
 
 
 class StoreListView(generic.ListView):
