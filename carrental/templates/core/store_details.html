@@ -1,5 +1,27 @@
 {% extends "../base.html" %}
 {% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
 {% block content %}
-<h1>{{ store.name }}</h1>
+<div class="page-content">
+    <div class="entity-left-div">
+        <div class="entity-left-child-div">
+            <div class="entity-image-div">
+                <img src="/static/images/store.png" class="entity-image">
+            </div>
+            <h4 class="entity-title pb-4">{{ store.name }}</h4>
+
+            <p>Extra details about the car go here.</p>
+
+            <p>More details.</p>
+
+            <p>Some more.</p>
+
+            <p>Formatted nicely later of course.</p>
+        </div>
+    </div>
+    <div class="entity-right-div">
+        <div class="entity-right-child-div">
+            Tabs for extra data and cars list goes here.
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -27,3 +27,57 @@
     color: red;
     text-align: center;
 }
+
+.entity-title {
+    text-align: center;
+}
+
+.entity-image {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    width: 9em;
+}
+
+.entity-image-div {
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .entity-left-div {
+        width: 260px !important;
+        position: absolute;
+        overflow: auto;
+        top: 56px;
+        bottom: 0;
+        left: 0;
+        display: block;
+        height: calc(100% - 56px);
+    }
+
+    .entity-right-div {
+        position: relative;
+        float: right;
+        width: calc(100% - 260px);;
+        min-height: calc(100% - 56px);
+    }
+}
+
+.entity-left-child-div {
+    max-width: 420px;
+    margin: auto;
+}
+
+.entity-right-child-div {
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.entity-left-div {
+    width: 100%;
+    background-color: #dcdcdc;
+    text-align: center;
+}
+
+.page-content {
+    min-height: calc(100vh - 56px);
+}
