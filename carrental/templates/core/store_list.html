@@ -2,13 +2,34 @@
 {% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
 
 {% block content %}
+<h3 class="pl-4 pt-2">Stores</h3>
     {% if store_list %}
-        <h1>List of Stores</h1>
-        <ul>
-        {% for store in store_list %}
-            <li><a href="{% url 'core:storedetails' store.id %}">{{ store.name }}</a></li>
-        {% endfor %}
-        </ul>
+        <div class="table-responsive pl-4 pr-4 pt-1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Store Id</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for store in store_list %}
+                    <tr>
+                        <td>{{ store.id }}</td>
+                        <td><a href="stores/{{ store.id }}">{{ store.name }}</a></td>
+                        <td>{{ store.address }}</td>
+                        <td>{{ store.phone }}</td>
+                        <td>{{ store.city }}</td>
+                        <td>{{ store.get_state_display }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
         <p>No stores are available.</p>
     {% endif %}
