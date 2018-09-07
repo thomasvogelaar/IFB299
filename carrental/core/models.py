@@ -65,6 +65,8 @@ class Car(models.Model):
     bodyType = models.CharField(max_length = 100)
     drive = models.CharField(max_length = 50)
     wheelbase = models.CharField(max_length = 20)
+    def __str__(self):
+        return self.name + ' ' + self.model + ' (' + self.series + ')'
 
 
 # Represents a customer in the system
@@ -81,6 +83,8 @@ class Customer(models.Model):
         max_length = 10,
         choices = [(item.name, item.value) for item in Gender]
     )
+    def __str__(self):
+        return self.name
 
 
 # Represents a transaction within the system
@@ -94,3 +98,5 @@ class Transaction(models.Model):
         choices = [(item.name, item.value) for item in TransactionType],
         default = "Pickup"
     )
+    def __str__(self):
+        return 'Transaction ID' + self.ID
