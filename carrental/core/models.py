@@ -67,7 +67,7 @@ class Car(models.Model):
     drive = models.CharField(max_length = 50)
     wheelbase = models.CharField(max_length = 20)
     def __str__(self):
-        return self.name + ' ' + self.model + ' ' + self.series + ' ' + ' (' + self.series_year + ')'
+        return self.make + ' ' + self.model + ' ' + ' ('+  self.series + '/' + self.series_year + ')'
 
 
 # Represents a customer in the system
