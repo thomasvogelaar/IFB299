@@ -16,7 +16,7 @@ class StoreListView(generic.ListView):
     paginate_by = 10
     def get_queryset(self):
         """Returns a list of stores"""
-        return Store.objects.all()
+        return Store.objects.order_by('id')
 
 
 class StoreDetailView(generic.DetailView):
