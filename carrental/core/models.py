@@ -100,4 +100,4 @@ class Transaction(models.Model):
         default = "Pickup"
     )
     def __str__(self):
-        return 'Transaction ID' + self.ID
+        return 'Transaction ID' + str(self.id)
