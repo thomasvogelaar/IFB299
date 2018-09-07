@@ -36,8 +36,8 @@
                     {% for transaction in store.transaction_set.all %}
                         <tr>
                             <td>{{ transaction.id }}</td>
-                            <td>{{ transaction.customer.name }}</td>
-                            <td>{{ transaction.car|stringformat:"s" }}</td>
+                            <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
+                            <td><a href="/customers/ {{transaction.car.id }}">{{ transaction.car|stringformat:"s" }}</a></td>
                             <td>{{ transaction.time }}</td>
                             <td>{{ transaction.get_type_display }}</td>
                         </tr>
