@@ -13,7 +13,7 @@ def index(request):
 class StoreListView(generic.ListView):
     template_name = 'core/store_list.html'
     context_object_name = 'store_list'
-    paginate_by = 1
+    paginate_by = 10
     def get_queryset(self):
         """Returns a list of stores"""
         return Store.objects.all()

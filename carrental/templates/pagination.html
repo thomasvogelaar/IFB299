@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-end pr-4">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}"><button class="btn btn">&laquo;</button></a>
+    {% else %}
+        <button disabled class="btn btn-secondary"><span>&laquo;</span></button>
+    {% endif %}
+    {% for i in paginator.page_range %}
+        {% if page_obj.number == i %}
+            <button class="btn btn-primary">
+                <span>{{ i }}<span class="sr-only">(current)</span></span>
+            </button>
+        {% elif page_obj.number == i|add:-1 or page_obj.number == i|add:1%}
+            <a href="?page={{ i }}"><button class="btn btn-light">{{ i }}</button></a>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}"><button class="btn btn">&raquo;</button></a>
+    {% else %}
+        <button disabled class="btn btn-secondary"><span>&raquo;</span></button>
+    {% endif %}
+</div>
