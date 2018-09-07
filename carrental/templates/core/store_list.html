@@ -30,6 +30,29 @@
                 </tbody>
             </table>
         </div>
+        {% if is_paginated %}
+        <div class="d-flex justify-content-end">
+            {% if page_obj.has_previous %}
+                <div><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></div>
+            {% else %}
+                <div class="disabled"><span>&laquo;</span></div>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <div class="active">
+                        <span>{{ i }}<span class="sr-only">(current)</span></span>
+                    </div>
+                {% elif page_obj.number == i|add:-1 or page_obj.number == i|add:1%}
+                    <div><a href="?page={{ i }}">{{ i }}</a></div>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <div><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></div>
+            {% else %}
+                <div class="disabled"><span>&raquo;</span></div>
+            {% endif %}
+        </div>
+        {% endif %}
     {% else %}
         <p>No stores are available.</p>
     {% endif %}
