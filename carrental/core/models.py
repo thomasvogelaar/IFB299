@@ -55,6 +55,7 @@ class Car(models.Model):
     make = models.CharField(max_length = 100)
     model = models.CharField(max_length = 100)
     series = models.CharField(max_length = 100)
+    series_year = models.CharField(max_length = 100)
     price = models.IntegerField()
     enginesize = models.CharField(max_length = 10)
     fuelsystem = models.CharField(max_length = 100)
@@ -66,7 +67,7 @@ class Car(models.Model):
     drive = models.CharField(max_length = 50)
     wheelbase = models.CharField(max_length = 20)
     def __str__(self):
-        return self.name + ' ' + self.model + ' (' + self.series + ')'
+        return self.name + ' ' + self.model + ' ' + self.series + ' ' + ' (' + self.series_year + ')'
 
 
 # Represents a customer in the system
