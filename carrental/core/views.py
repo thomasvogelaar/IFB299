@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
-from .models import Store, Transaction
+from .models import Car, Customer, Store, Transaction
 
 
 @login_required
@@ -32,6 +32,14 @@ def carlist(request):
 @login_required
 def cardetails(request, car_id):
     return HttpResponse("This is the details page for car id %s." % car_id)
+
+class CarListView(generic.ListView):
+    template_name = 'core/car_list.html'
+    context_object_name = 'car_list'
+    paginate_by = 10
+    def get_queryset(self):
+        """Returns a list of cars"""
+        return Car.objects.order_by('id')
 
 
 @login_required

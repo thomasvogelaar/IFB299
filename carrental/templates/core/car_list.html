@@ -1,0 +1,43 @@
+{% extends "../base.html" %}
+{% block nav-cars %}<a class="nav-link active" href="/cars">Cars</a>{% endblock %}
+
+{% block content %}
+<h3 class="pl-4 pt-2">Cars</h3>
+    {% if car_list %}
+        <div class="table-responsive pl-4 pr-4 pt-1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Car Id</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Series</th>
+                        <th>Year</th>
+                        <th>Price</th>
+                        <th>Seats</th>
+                        <th>Body Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for car in car_list %}
+                    <tr>
+                        <td><a href="cars/{{ car.id }}">{{ car.id }}</a></td>
+                        <td>{{ car.make }}</td>
+                        <td>{{ car.model }}</td>
+                        <td>{{ car.series }}</td>
+                        <td>{{ car.series_year }}</td>
+                        <td>{{ car.price }}</td>
+                        <td>{{ car.seats }}</td>
+                        <td>{{ car.bodyType }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if is_paginated %}
+            {% include "../pagination.html" %}
+        {% endif %}
+    {% else %}
+        <p>No cars are available.</p>
+    {% endif %}
+{% endblock %}
