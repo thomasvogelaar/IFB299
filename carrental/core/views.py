@@ -60,3 +60,11 @@ def transactionlist(request):
 @login_required
 def transactiondetails(request, transaction_id):
     return HttpResponse("This is the details page for transaction id %s." % transaction_id)
+
+class TransactionListView(generic.ListView):
+    template_name = "core/transaction_list"
+    context_object_name = 'transaction_list'
+    paginate_by = 10
+    def get_queryset(self):
+        """ Returns a list of transactions """
+        return Transaction.objects.order_by('id')

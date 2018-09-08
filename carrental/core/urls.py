@@ -13,6 +13,6 @@ urlpatterns = [
     path('cars/<int:car_id>', views.cardetails, name='cardetails'),
     path('customers', views.customerlist, name='customerlist'),
     path('customers/<int:customer_id>', views.customerdetails, name='customerdetails'),
-    path('transactions', views.transactionlist, name='transactionlist'),
+    path('transactions', login_required(views.TransactionListView.as_view()), name='transactionlist'),
     path('transactions/<int:transaction_id>', views.transactiondetails, name='transactiondetails')
 ]
