@@ -14,7 +14,9 @@
         {% endif %}
     </div>
     <div class="pr-1">
-        <button class="pag-button font-weight-bold btn btn-primary" disabled >{{ page_obj.number }}</button>
+        <button class="pag-button font-weight-bold btn btn-primary" disabled >
+            {% if page_obj %} {{ page_obj.number }} {% else %} 1 {% endif %}
+        </button>
     </div>
     <div class="pr-1">
         {% if page_obj.has_next %}
