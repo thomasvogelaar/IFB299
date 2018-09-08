@@ -16,6 +16,7 @@
                         <th>Price</th>
                         <th>Seats</th>
                         <th>Body Type</th>
+                        <th>Last Recorded Location</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,15 @@
                         <td>{{ car.price }}</td>
                         <td>{{ car.seats }}</td>
                         <td>{{ car.bodyType }}</td>
+                        <td>
+                            {% if car.transaction_set.last.type == 'PIC' %}
+                                <span class="text-danger">WITH CUSTOMER</span>
+                            {% elif car.transaction_set.last.type == 'RET' %}
+                                <a href="/stores/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
