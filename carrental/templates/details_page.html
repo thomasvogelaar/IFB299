@@ -1,0 +1,20 @@
+{% extends "./base.html" %}
+{% block content %}
+<div class="page-content">
+    <div class="entity-left-div">
+        <div class="entity-left-inner">
+            <div class="entity-left-header">
+                {% block left-header %}{% endblock %}
+            </div>
+            <div class="entity-left-content">
+                {% block left-content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <div class="entity-right-div">
+        <div class="entity-right-inner">
+            {% block right-content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

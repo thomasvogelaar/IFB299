@@ -1,49 +1,39 @@
-{% extends "../base.html" %}
+{% extends "../details_page.html" %}
 {% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
-{% block content %}
-<div class="page-content">
-    <div class="entity-left-div">
-        <div class="entity-left-inner">
-            <div class="entity-left-header">
-                <img src="/static/images/store.png" class="entity-image">
-                <h3 class="entity-title pb-4">{{ store.name }}</h3>
-            </div>
-            <div class="entity-left-content">
-                <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
-                <div class="detail-head">City</div> <div class="detail-body">{{ store.city }}</div>
-                <div class="detail-head">State</div> <div class="detail-body">{{ store.state}}</div>
-                <div class="detail-head">Phone</div> <div class="detail-body">{{ store.phone }}</div>
-            </div>
-        </div>
+{% block left-header %}
+    <img src="/static/images/store.png" class="entity-image">
+    <h3 class="entity-title pb-4">{{ store.name }}</h3>
+{% endblock %}
+{% block left-content %}
+    <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
+    <div class="detail-head">City</div> <div class="detail-body">{{ store.city }}</div>
+    <div class="detail-head">State</div> <div class="detail-body">{{ store.state}}</div>
+    <div class="detail-head">Phone</div> <div class="detail-body">{{ store.phone }}</div>
+{% endblock %}
+{% block right-content %}
+    <h3>Transactions</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Transaction Id</th>
+                    <th>Customer</th>
+                    <th>Car</th>
+                    <th>Date/Time</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for transaction in store.transaction_set.all %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
+                    <td><a href="/cars/{{ transaction.car.id }}">{{ transaction.car|stringformat:"s" }}</a></td>
+                    <td>{{ transaction.time }}</td>
+                    <td>{{ transaction.get_type_display }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <div class="entity-right-div">
-        <div class="entity-right-child-div">
-            <h3>Transactions</h3>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Transaction Id</th>
-                            <th>Customer</th>
-                            <th>Car</th>
-                            <th>Date/Time</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for transaction in store.transaction_set.all %}
-                        <tr>
-                            <td>{{ transaction.id }}</td>
-                            <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
-                            <td><a href="/cars/{{ transaction.car.id }}">{{ transaction.car|stringformat:"s" }}</a></td>
-                            <td>{{ transaction.time }}</td>
-                            <td>{{ transaction.get_type_display }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
