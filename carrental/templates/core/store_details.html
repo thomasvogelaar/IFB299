@@ -3,19 +3,17 @@
 {% block content %}
 <div class="page-content">
     <div class="entity-left-div">
-        <div class="entity-left-child-div">
-            <div class="entity-image-div">
+        <div class="entity-left-inner">
+            <div class="entity-left-header">
                 <img src="/static/images/store.png" class="entity-image">
+                <h3 class="entity-title pb-4">{{ store.name }}</h3>
             </div>
-            <h4 class="entity-title pb-4">{{ store.name }}</h4>
-
-            <p>Extra details about the store go here.</p>
-
-            <p>More details.</p>
-
-            <p>Some more.</p>
-
-            <p>Formatted nicely later of course.</p>
+            <div class="entity-left-content">
+                <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
+                <div class="detail-head">City</div> <div class="detail-body">{{ store.city }}</div>
+                <div class="detail-head">State</div> <div class="detail-body">{{ store.state}}</div>
+                <div class="detail-head">Phone</div> <div class="detail-body">{{ store.phone }}</div>
+            </div>
         </div>
     </div>
     <div class="entity-right-div">
