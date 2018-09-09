@@ -1,0 +1,37 @@
+{% extends "../details_page.html" %}
+{% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
+{% block left-header %}
+    <img src="/static/images/car.jpg" class="entity-image">
+    <h4 class="entity-title pb-4">{{ car.make }} {{ car.model }}</h4>
+{% endblock %}
+{% block left-content %}
+    Details here
+{% endblock %}
+{% block right-content %}
+    <h3>Transactions</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Transaction Id</th>
+                    <th>Customer</th>
+                    <th>Store</th>
+                    <th>Date/Time</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions_page_obj.object_list %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
+                    <td><a href="/cars/{{ transaction.store.id }}">{{ transaction.store|stringformat:"s" }}</a></td>
+                    <td>{{ transaction.time }}</td>
+                    <td>{{ transaction.get_type_display }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "../transaction_sub_pagination.html" %}
+{% endblock %}

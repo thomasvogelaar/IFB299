@@ -26,7 +26,7 @@ class StoreDetailView(generic.DetailView):
     transactions_paginate_by = 10
     def get_context_data(self, **kwargs):
         context = super(StoreDetailView, self).get_context_data(**kwargs)
-        transactions_page = self.request.GET.get("transactions_page")
+        transactions_page = self.request.GET.get("transactions_page").order_by('-time')
         transactions = self.object.transaction_set.filter()
         transactions_paginator = paginator.Paginator(transactions, self.transactions_paginate_by)
         try:
@@ -54,6 +54,22 @@ class CarListView(generic.ListView):
         """Returns a list of cars"""
         return Car.objects.order_by('id')
 
+
+class CarDetailView(generic.DetailView):
+    model = Car
+    template_name = 'core/car_details.html'
+    transactions_paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(CarDetailView, self).get_context_data(**kwargs)
+        transactions_page = self.request.GET.get("transactions_page")
+        transactions = self.object.transaction_set.filter().order_by('-time')
+        transactions_paginator = paginator.Paginator(transactions, self.transactions_paginate_by)
+        try:
+            transactions_page_obj = transactions_paginator.page(transactions_page)
+        except:
+            transactions_page_obj = transactions_paginator.page(1)
+        context["transactions_page_obj"] = transactions_page_obj
+        return context
 
 @login_required
 def customerlist(request):
