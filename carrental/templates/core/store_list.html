@@ -11,9 +11,9 @@
                         <th>Store Id</th>
                         <th>Name</th>
                         <th>Address</th>
-                        <th>Phone</th>
                         <th>City</th>
                         <th>State</th>
+                        <th>Phone</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,9 +22,9 @@
                         <td>{{ store.id }}</td>
                         <td><a href="stores/{{ store.id }}">{{ store.name }}</a></td>
                         <td>{{ store.address }}</td>
-                        <td>{{ store.phone }}</td>
                         <td>{{ store.city }}</td>
                         <td>{{ store.get_state_display }}</td>
+                        <td>{{ store.phone }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

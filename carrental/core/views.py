@@ -1,3 +1,4 @@
+from django.core import paginator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -22,6 +23,18 @@ class StoreListView(generic.ListView):
 class StoreDetailView(generic.DetailView):
     model = Store
     template_name = 'core/store_details.html'
+    transactions_paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(StoreDetailView, self).get_context_data(**kwargs)
+        transactions_page = self.request.GET.get("transactions_page")
+        transactions = self.object.transaction_set.filter()
+        transactions_paginator = paginator.Paginator(transactions, self.transactions_paginate_by)
+        try:
+            transactions_page_obj = transactions_paginator.page(transactions_page)
+        except:
+            transactions_page_obj = transactions_paginator.page(1)
+        context["transactions_page_obj"] = transactions_page_obj
+        return context
 
 
 @login_required

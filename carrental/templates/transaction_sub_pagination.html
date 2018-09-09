@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-end pr-4">
+    <div class="pr-1">
+        {% if transactions_page_obj.has_previous %}
+            <a href="?transactions_page=1"><button class="pag-button btn btn"><i class="fa fa-angle-double-left"></i></button></a>
+        {% else %}
+            <button class="pag-button btn btn-secondary" disabled><span><i class="fa fa-angle-double-left"></i></span></button>
+        {% endif %}
+    </div>
+    <div class="pr-1">
+        {% if transactions_page_obj.has_previous %}
+            <a href="?transactions_page={{ transactions_page_obj.previous_page_number }}"><button class="pag-button btn btn"><i class="fa fa-angle-left"></i></button></a>
+        {% else %}
+            <button class="pag-button btn btn-secondary" disabled><span><i class="fa fa-angle-left"></i></span></button>
+        {% endif %}
+    </div>
+    <div class="pr-1">
+        <button class="pag-button font-weight-bold btn btn-primary" disabled >
+            {% if transactions_page_obj %} {{ transactions_page_obj.number }} {% else %} 1 {% endif %}
+        </button>
+    </div>
+    <div class="pr-1">
+        {% if transactions_page_obj.has_next %}
+            <a href="?transactions_page={{ transactions_page_obj.next_page_number }}"><button class="pag-button btn btn"><i class="fa fa-angle-right"></i></button></a>
+        {% else %}
+            <button class="pag-button btn btn-secondary" disabled><span><i class="fa fa-angle-right"></i></span></button>
+        {% endif %}
+    </div>
+    <div class="pr-1">
+        {% if transactions_page_obj.has_next %}
+            <a href="?transactions_page={{ paginator.num_pages }}"><button class="pag-button btn btn"><i class="fa fa-angle-double-right"></i></button></a>
+        {% else %}
+            <button class="pag-button btn btn-secondary" disabled><span><i class="fa fa-angle-double-right"></i></span></button>
+        {% endif %}
+    </div>
+</div>

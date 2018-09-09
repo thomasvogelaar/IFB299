@@ -4,7 +4,7 @@
     <img src="/static/images/store.png" class="entity-image">
     <h3 class="entity-title pb-4">{{ store.name }}</h3>
 {% endblock %}
-{% block left-content %}
+{% block left-content %}    
     <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
     <div class="detail-head">City</div> <div class="detail-body">{{ store.city }}</div>
     <div class="detail-head">State</div> <div class="detail-body">{{ store.state}}</div>
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for transaction in store.transaction_set.all %}
+            {% for transaction in transactions_page_obj.object_list %}
                 <tr>
                     <td>{{ transaction.id }}</td>
                     <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
@@ -36,4 +36,6 @@
             </tbody>
         </table>
     </div>
+    {% include "../transaction_sub_pagination.html" %}
+
 {% endblock %}
