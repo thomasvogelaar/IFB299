@@ -26,8 +26,8 @@ class StoreDetailView(generic.DetailView):
     transactions_paginate_by = 10
     def get_context_data(self, **kwargs):
         context = super(StoreDetailView, self).get_context_data(**kwargs)
-        transactions_page = self.request.GET.get("transactions_page").order_by('-time')
-        transactions = self.object.transaction_set.filter()
+        transactions_page = self.request.GET.get("transactions_page")
+        transactions = self.object.transaction_set.filter().order_by('-time')
         transactions_paginator = paginator.Paginator(transactions, self.transactions_paginate_by)
         try:
             transactions_page_obj = transactions_paginator.page(transactions_page)
