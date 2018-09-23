@@ -6,6 +6,8 @@ from django.views import generic
 from .models import Car, Customer, Store, Transaction
 from .forms import TransactionsGetForm
 from datetime import datetime, timedelta, time
+from graphos.sources.model import ModelDataSource
+from graphos.renderers import gchart
 
 
 @login_required
@@ -73,6 +75,7 @@ class CarDetailView(generic.DetailView):
         context["transactions_page_obj"] = transactions_page_obj
         return context
 
+
 @login_required
 def customerlist(request):
     return HttpResponse("This is the list of customers")
@@ -91,6 +94,7 @@ def transactionlist(request):
     else:
         form = TransactionsGetForm(request.GET)
         if form.is_valid():
+            transactions_per_page = 10
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date'] + timedelta(days=1)
             transactions = Transaction.objects.filter(
@@ -98,15 +102,19 @@ def transactionlist(request):
             ).filter(
                 time__lte=end_date
             )
+            # FIXME do
+            transaction_data = Transaction.objects.all()
+            data_source = ModelDataSource(transaction_data, fields=['time'])
+            chart = gchart.LineChart(data_source)
             transactions_page = request.GET.get("page")
-            print(transactions_page)
-            transactions_paginator = paginator.Paginator(transactions, 1)
+            transactions_paginator = paginator.Paginator(transactions, transactions_per_page)
             try:
                 transactions_page_obj = transactions_paginator.page(transactions_page)
             except:
                 transactions_page_obj = transactions_paginator.page(1)
-            return render(request, 'core/transaction_list.html', {'form': form, 'transaction_list': transactions, 'page_obj': transactions_page_obj, 'paginator': transactions_paginator })
+            return render(request, 'core/transaction_list.html', {'form': form, 'transaction_list': transactions, 'page_obj': transactions_page_obj, 'paginator': transactions_paginator, 'chart': chart })
     return render(request, 'core/transaction_list.html', {'form': form })
+
 
 @login_required
 def transactiondetails(request, transaction_id):
