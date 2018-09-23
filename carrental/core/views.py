@@ -6,8 +6,7 @@ from django.views import generic
 from .models import Car, Customer, Store, Transaction
 from .forms import TransactionsGetForm
 from datetime import datetime, timedelta, time
-from graphos.sources.model import ModelDataSource
-from graphos.renderers import gchart
+from .helpers.transactions import create_chart, get_transactions_by_dates
 
 
 @login_required
@@ -29,6 +28,7 @@ class StoreDetailView(generic.DetailView):
     template_name = 'core/store_details.html'
     transactions_paginate_by = 10
     def get_context_data(self, **kwargs):
+        """Povides the data (in the form of a context object) for the store details page."""
         context = super(StoreDetailView, self).get_context_data(**kwargs)
         transactions_page = self.request.GET.get("transactions_page")
         transactions = self.object.transaction_set.filter().order_by('-time')
@@ -64,6 +64,7 @@ class CarDetailView(generic.DetailView):
     template_name = 'core/car_details.html'
     transactions_paginate_by = 10
     def get_context_data(self, **kwargs):
+        """Provides the data (in the form of a context object) for the car details page."""
         context = super(CarDetailView, self).get_context_data(**kwargs)
         transactions_page = self.request.GET.get("transactions_page")
         transactions = self.object.transaction_set.filter().order_by('-time')
@@ -88,32 +89,38 @@ def customerdetails(request, customer_id):
 
 @login_required
 def transactionlist(request):
-    param = request.GET.get('start_date')
-    if param is None:
+    """
+    Generates the data required for the transactions list view.
+    Most of the logic behind this is in the helper functions in ./helpers/transactions.py
+    """
+    transactions_per_page = 10
+    context = {}
+    if request.GET.get('start_date') is None:
         form = TransactionsGetForm()
+        context = {'form': form }
     else:
         form = TransactionsGetForm(request.GET)
+        context = {'form': form }
         if form.is_valid():
-            transactions_per_page = 10
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date'] + timedelta(days=1)
-            transactions = Transaction.objects.filter(
-                time__gte=start_date
-            ).filter(
-                time__lte=end_date
-            )
-            # FIXME do
-            transaction_data = Transaction.objects.all()
-            data_source = ModelDataSource(transaction_data, fields=['time'])
-            chart = gchart.LineChart(data_source)
-            transactions_page = request.GET.get("page")
+            transactions = get_transactions_by_dates(start_date, end_date)
+
+            chart = create_chart(transactions, start_date, end_date, 'line')
             transactions_paginator = paginator.Paginator(transactions, transactions_per_page)
             try:
-                transactions_page_obj = transactions_paginator.page(transactions_page)
+                transactions_page_obj = transactions_paginator.page(request.GET.get("page"))
             except:
                 transactions_page_obj = transactions_paginator.page(1)
-            return render(request, 'core/transaction_list.html', {'form': form, 'transaction_list': transactions, 'page_obj': transactions_page_obj, 'paginator': transactions_paginator, 'chart': chart })
-    return render(request, 'core/transaction_list.html', {'form': form })
+            context = {
+                'form': form,
+                'transaction_list': transactions,
+                'page_obj': transactions_page_obj,
+                'paginator': transactions_paginator,
+                'chart': chart,
+                'media_type': form.cleaned_data['media_type']
+                }
+    return render(request, 'core/transaction_list.html', context)
 
 
 @login_required

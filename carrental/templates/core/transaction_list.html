@@ -11,7 +11,6 @@
 <div class="transaction-content pl-4">
     <div class="transaction-criteria">
         <form action="/transactions" autocomplete="off" method="get">
-            {% csrf_token %}
             <div class="d-flex pt-2 pb-4">
                 <div class="px-2">
                     {{ form.start_date.errors }}
@@ -23,6 +22,11 @@
                     <label for="{{ form.end_date.id_for_label }}">End Date:</label>
                     {{ form.end_date }}
                 </div>
+                <div class="px-2">
+                    {{ form.media_type.errors }}
+                    <label for="{{ form.media_type.id_for_label }}">Media Type:</label>
+                    {{ form.media_type }}
+                </div>
                 <div class="px-2 d-flex mt-auto">
                     <input type="submit" value="Submit" class="btn btn-primary" style="height: 38px;">
                 </div>
@@ -31,32 +35,35 @@
     </div>
 </div>
 {% if transaction_list %}
-    <div class="table-responsive pl-4 pr-4 pt-1">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Transaction Id</th>
-                    <th>Customer</th>
-                    <th>Car</th>
-                    <th>Date/Time</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for transaction in page_obj.object_list %}
-                <tr>
-                    <td>{{ transaction.id }}</td>
-                    <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
-                    <td><a href="/cars/{{ transaction.car.id }}">{{ transaction.car|stringformat:"s" }}</a></td>
-                    <td>{{ transaction.time }}</td>
-                    <td>{{ transaction.get_type_display }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% include "../pagination.html" %}
-    {{ chart.as_html }}
+    {% if media_type == 'table' %}
+        <div class="table-responsive pl-4 pr-4 pt-1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Transaction Id</th>
+                        <th>Customer</th>
+                        <th>Car</th>
+                        <th>Date/Time</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for transaction in page_obj.object_list %}
+                    <tr>
+                        <td>{{ transaction.id }}</td>
+                        <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
+                        <td><a href="/cars/{{ transaction.car.id }}">{{ transaction.car|stringformat:"s" }}</a></td>
+                        <td>{{ transaction.time }}</td>
+                        <td>{{ transaction.get_type_display }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include "../pagination.html" %}
+    {% elif media_type == 'line' %}
+        {{ chart.as_html }}
+    {% endif %}
 {% else %}
     <p class="pl-5">No transactions for this time period.</p>
 {% endif %}
