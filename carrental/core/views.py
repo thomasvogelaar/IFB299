@@ -6,6 +6,8 @@ from django.views import generic
 from .models import Car, Customer, Store, Transaction
 from django import forms
 from django.template import Template, Context
+from .forms import TransactionsGetForm, CarRecommendForm
+from datetime import datetime, timedelta, time
 
 
 @login_required
@@ -85,8 +87,28 @@ def customerdetails(request, customer_id):
 
 @login_required
 def transactionlist(request):
-    return HttpResponse("This is the list of transactions")
-
+    param = request.GET.get('start_date')
+    if param is None:
+        form = TransactionsGetForm()
+    else:
+        form = TransactionsGetForm(request.GET)
+        if form.is_valid():
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date'] + timedelta(days=1)
+            transactions = Transaction.objects.filter(
+                time__gte=start_date
+            ).filter(
+                time__lte=end_date
+            )
+            transactions_page = request.GET.get("page")
+            print(transactions_page)
+            transactions_paginator = paginator.Paginator(transactions, 1)
+            try:
+                transactions_page_obj = transactions_paginator.page(transactions_page)
+            except:
+                transactions_page_obj = transactions_paginator.page(1)
+            return render(request, 'core/transaction_list.html', {'form': form, 'transaction_list': transactions, 'page_obj': transactions_page_obj, 'paginator': transactions_paginator })
+    return render(request, 'core/transaction_list.html', {'form': form })
 
 @login_required
 def transactiondetails(request, transaction_id):
@@ -108,7 +130,12 @@ class CarRecommendView(generic.TemplateView):
         return context
     
 def recommend_car(request: HttpRequest):
+    form = CarRecommendForm(request.GET)
     cars = list(Car.cars.all())
+    cars = apply_filters(request, cars)
+    return render(request, 'extra/car-recommend.html', { 'form': form, 'recommended_cars': cars })
+
+def apply_filters(request: HttpRequest, cars: list):
     if (key_exists(request, "make")):
         cars = filter_cars(cars, "make", request.GET["make"])
     if (key_exists(request, "model")):
@@ -129,51 +156,7 @@ def recommend_car(request: HttpRequest):
         cars = filter_cars(cars, "drive", request.GET["drive"])
     if (key_exists(request, "wheelbase")):
         cars = filter_cars(cars, "wheelbase", request.GET["wheelbase"])
-    
-    result_template = Template("<div id=\"results\">" + 
-        "<div class=\"table-responsive pl-4 pr-4 pt-1\">" +
-            "<table class=\"table\">" +
-                "<thead>" +
-                    "<tr>" +
-                        "<th>Car Id</th>" +
-                        "<th>Make</th>" +
-                        "<th>Model</th>" +
-                        "<th>Series</th>" +
-                        "<th>Year</th>" +
-                        "<th>Price</th>" +
-                        "<th>Seats</th>" +
-                        "<th>Body Type</th>" +
-                        "<th>Last Recorded Location</th>" +
-                    "</tr>" +
-                "</thead>" +
-                "<tbody>" +
-                "{% for car in recommended_cars %}" +
-                    "<tr>" +
-                        "<td><a href=\"cars/{{ car.id }}\">{{ car.id }}</a></td>" +
-                        "<td>{{ car.make }}</td>" +
-                        "<td>{{ car.model }}</td>" +
-                        "<td>{{ car.series }}</td>" +
-                        "<td>{{ car.series_year }}</td>" +
-                        "<td>{{ car.price }}</td>" +
-                        "<td>{{ car.seats }}</td>" +
-                        "<td>{{ car.bodyType }}</td>" +
-                        "<td>" +
-                            "{% if car.transaction_set.last.type == 'PIC' %}" +
-                                "<span class=\"text-danger\">WITH CUSTOMER</span>" +
-                            "{% elif car.transaction_set.last.type == 'RET' %}" +
-                                "<a href=\"/stores/{{car.transaction_set.last.store.id}}\">{{ car.transaction_set.last.store.name }}</a>" +
-                            "{% else %}" +
-                                "N/A" +
-                            "{% endif %}" +
-                        "</td>" +
-                    "</tr>"
-                "{% endfor %}" +
-                "</tbody>" +
-            "</table>" +
-        "</div>" +
-        "</div>")
-    context_data = dict([("recommended_cars", cars)])
-    return HttpResponse(result_template.render(Context(context_data)))
+    return cars
 
 def filter_cars(collection: list, field: str, value: str):
     values = value.split(" ")
@@ -211,30 +194,3 @@ def check_val(check_type: str, value, constraints: list):
 
 def key_exists(request: HttpRequest, key):
     return key in request.GET
-
-class CarRecommendForm(forms.Form):
-    make = forms.CharField(required=False)
-    model = forms.CharField(required=False)
-    car_age = forms.ChoiceField(required=False)
-    engine_size = forms.CharField(required=False)
-    fuel_system = forms.CharField(required=False)
-    power = forms.CharField(required=False)
-    seats = forms.CharField(required=False)
-    body_type = forms.CharField(required=False)
-    drive = forms.CharField(required=False)
-    car_size = forms.ChoiceField(required=False)
-
-    car_size.choices = (
-        ("< 2553", "Small"),
-        ("BETWEEN 2553 AND 2877", "Medium"),
-        ("> 2877", "Large")
-    )
-    car_age.choices = (
-        ("> 5", "> 5 years"),
-        ("BETWEEN 5 AND 10", "5 - 10 years"),
-        ("BETWEEN 10 AND 15", "10 - 15 years"),
-        ("BETWEEN 15 AND 20", "15 - 20 years"),
-        ("BETWEEN 20 AND 25", "20 - 25 years"),
-        ("BETWEEN 25 AND 30", "25 - 30 years"),
-        ("< 30", "< 30 years")
-    )
