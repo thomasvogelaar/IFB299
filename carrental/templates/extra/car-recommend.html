@@ -2,9 +2,9 @@
 {% block content %}
 <div class="p-4">
   <h2>Filter Options</h2>
-  <form id="recommend">
+  <form id="recommend" action="/recommend-car" method="get">
     <table>{{ form }}</table>
-    <button id="form_button" type="button">Submit</button>
+    <button type="submit">Submit</button>
   </form>
 </div>
 
@@ -59,31 +59,4 @@
     </div>
   {% endif %}
 </div>
-
-<script>
-  function waitForJQUERY(method) {
-    if (window.jQuery) {
-        method();
-    } else {
-        setTimeout(() => waitForJQUERY(method), 50);
-    }
-  }
-
-  waitForJQUERY(() => { $("#form_button").on("click", submitData); });
-  function submitData() {
-    console.log('Submitting...')
-      $.ajax({
-        url: "recommend-car",
-        type: "GET",
-        dataType: "html",
-        data: $("form[id='recommend']").serialize(),
-        success: function (data) {
-          $("#results").html(data);
-        },
-        error: function (error) {
-          console.log(error.responseText);
-        }
-      });
-    }
-</script>
 {% endblock %}

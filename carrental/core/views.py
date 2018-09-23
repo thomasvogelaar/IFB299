@@ -121,44 +121,31 @@ class TransactionListView(generic.ListView):
     def get_queryset(self):
         """ Returns a list of transactions """
         return Transaction.objects.order_by('id')
-
-class CarRecommendView(generic.TemplateView):
-    template_name = "extra/car-recommend.html"
-    def get_context_data(self, **kwargs):
-        context = super(CarRecommendView, self).get_context_data(**kwargs)
-        context["form"] = CarRecommendForm().as_table()
-        return context
     
 def recommend_car(request: HttpRequest):
     form = CarRecommendForm(request.GET)
     cars = list(Car.cars.all())
     cars = apply_filters(request, cars)
+    if (len(list(request.GET.values())) == 0):
+        return render(request, 'extra/car-recommend.html', { 'form': form })    
     return render(request, 'extra/car-recommend.html', { 'form': form, 'recommended_cars': cars })
 
 def apply_filters(request: HttpRequest, cars: list):
-    if (key_exists(request, "make")):
-        cars = filter_cars(cars, "make", request.GET["make"])
-    if (key_exists(request, "model")):
-        cars = filter_cars(cars, "model", request.GET["model"])
-    if (key_exists(request, "series_year")):
-        cars = filter_cars(cars, "series_year", request.GET["series_year"])
-    if (key_exists(request, "engine_size")):
-        cars = filter_cars(cars, "enginesize", request.GET["engine_size"])
-    if (key_exists(request, "fuel_system")):
-        cars = filter_cars(cars, "fuelsystem", request.GET["fuel_system"])
-    if (key_exists(request, "power")):
-        cars = filter_cars(cars, "power", request.GET["power"])
-    if (key_exists(request, "seats")):
-        cars = filter_cars(cars, "seats", request.GET["seats"])
-    if (key_exists(request, "body_type")):
-        cars = filter_cars(cars, "bodyType", request.GET["body_type"])
-    if (key_exists(request, "drive")):
-        cars = filter_cars(cars, "drive", request.GET["drive"])
-    if (key_exists(request, "wheelbase")):
-        cars = filter_cars(cars, "wheelbase", request.GET["wheelbase"])
+    cars = filter_cars(cars, "make", request.GET.get("make"))
+    cars = filter_cars(cars, "model", request.GET.get("model"))
+    cars = filter_cars(cars, "series_year", request.GET.get("series_year"))
+    cars = filter_cars(cars, "enginesize", request.GET.get("engine_size"))
+    cars = filter_cars(cars, "fuelsystem", request.GET.get("fuel_system"))
+    cars = filter_cars(cars, "power", request.GET.get("power"))
+    cars = filter_cars(cars, "seats", request.GET.get("seats"))
+    cars = filter_cars(cars, "bodyType", request.GET.get("body_type"))
+    cars = filter_cars(cars, "drive", request.GET.get("drive"))
+    cars = filter_cars(cars, "wheelbase", request.GET.get("wheelbase"))
     return cars
 
 def filter_cars(collection: list, field: str, value: str):
+    if (value == '' or value is None):
+        return collection
     values = value.split(" ")
     if value.__contains__("<"):
         check_type = "lt"
@@ -189,8 +176,3 @@ def check_val(check_type: str, value, constraints: list):
         return int(value) > int(constraints[0])
     else:
         return str(value) == str(constraints[0])
-    
-
-
-def key_exists(request: HttpRequest, key):
-    return key in request.GET
