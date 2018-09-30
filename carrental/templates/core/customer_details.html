@@ -1,0 +1,41 @@
+{% extends "../details_page.html" %}
+{% block nav-customers %}<a class="nav-link active" href="/customers">Customers</a>{% endblock %}
+{% block left-header %}
+    <img src="/static/images/customer.png" class="entity-image">
+    <h4 class="entity-title pb-4">{{ customer.name }}</h4>
+{% endblock %}
+{% block left-content %}
+    <div class="detail-head">Phone Number</div> <div class="detail-body">{{ customer.phone }}</div>
+    <div class="detail-head">Address</div> <div class="detail-body">{{ customer.address }}</div>
+    <div class="detail-head">Birthday</div> <div class="detail-body">{{ customer.birthday }}</div>
+    <div class="detail-head">Occupation</div> <div class="detail-body">{{ customer.get_occupation_display }}</div>
+    <div class="detail-head">Gender</div> <div class="detail-body">{{ customer.get_gender_display }}</div>
+{% endblock %}
+{% block right-content %}
+    <h3>Transactions</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Transaction Id</th>
+                    <th>Car</th>
+                    <th>Store</th>
+                    <th>Date/Time</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions_page_obj.object_list %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td><a href="/cars/{{ transaction.car.id }}">{{ transaction.car.make }} {{ transaction.car.model }}</a></td>
+                    <td><a href="/stores/{{ transaction.store.id }}">{{ transaction.store|stringformat:"s" }}</a></td>
+                    <td>{{ transaction.time }}</td>
+                    <td>{{ transaction.get_type_display }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "../transaction_sub_pagination.html" %}
+{% endblock %}

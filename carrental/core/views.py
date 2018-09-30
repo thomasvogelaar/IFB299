@@ -38,6 +38,7 @@ class StoreDetailView(generic.DetailView):
         except:
             transactions_page_obj = transactions_paginator.page(1)
         context["transactions_page_obj"] = transactions_page_obj
+        context["transactions_paginator"] = transactions_paginator
         return context
 
 
@@ -74,17 +75,36 @@ class CarDetailView(generic.DetailView):
         except:
             transactions_page_obj = transactions_paginator.page(1)
         context["transactions_page_obj"] = transactions_page_obj
+        context["transactions_paginator"] = transactions_paginator
         return context
 
 
-@login_required
-def customerlist(request):
-    return HttpResponse("This is the list of customers")
+class CustomerListView(generic.ListView):
+    template_name = 'core/customer_list.html'
+    context_object_name = 'customer_list'
+    paginate_by = 10
+    def get_queryset(self):
+        """Returns a list of customers"""
+        return Customer.objects.order_by('id')
 
 
-@login_required
-def customerdetails(request, customer_id):
-    return HttpResponse("This is the details page for customer id %s." % customer_id)
+class CustomerDetailView(generic.DetailView):
+    model = Customer
+    template_name = 'core/customer_details.html'
+    transactions_paginate_by = 10
+    def get_context_data(self, **kwargs):
+        """Provides the data (in the form of a context object) for the customer details page."""
+        context = super(CustomerDetailView, self).get_context_data(**kwargs)
+        transactions_page = self.request.GET.get("transactions_page")
+        transactions = self.object.transaction_set.filter().order_by('-time')
+        transactions_paginator = paginator.Paginator(transactions, self.transactions_paginate_by)
+        try:
+            transactions_page_obj = transactions_paginator.page(transactions_page)
+        except:
+            transactions_page_obj = transactions_paginator.page(1)
+        context["transactions_page_obj"] = transactions_page_obj
+        context["transactions_paginator"] = transactions_paginator
+        return context
 
 
 @login_required

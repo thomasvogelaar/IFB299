@@ -1,5 +1,5 @@
 {% extends "../details_page.html" %}
-{% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
+{% block nav-cars %}<a class="nav-link active" href="/cars">Cars</a>{% endblock %}
 {% block left-header %}
     <img src="/static/images/car.png" class="entity-image">
     <h4 class="entity-title pb-4">{{ car.make }} {{ car.model }}</h4>
@@ -35,7 +35,7 @@
                 <tr>
                     <td>{{ transaction.id }}</td>
                     <td><a href="/customers/{{ transaction.customer.id }}">{{ transaction.customer.name }}</a></td>
-                    <td><a href="/cars/{{ transaction.store.id }}">{{ transaction.store|stringformat:"s" }}</a></td>
+                    <td><a href="/stores/{{ transaction.store.id }}">{{ transaction.store|stringformat:"s" }}</a></td>
                     <td>{{ transaction.time }}</td>
                     <td>{{ transaction.get_type_display }}</td>
                 </tr>

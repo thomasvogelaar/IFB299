@@ -27,7 +27,7 @@
     </div>
     <div class="pr-1">
         {% if transactions_page_obj.has_next %}
-            <a href="?transactions_page={{ paginator.num_pages }}"><button class="pag-button btn btn"><i class="fa fa-angle-double-right"></i></button></a>
+            <a href="?transactions_page={{ transactions_paginator.num_pages }}"><button class="pag-button btn btn"><i class="fa fa-angle-double-right"></i></button></a>
         {% else %}
             <button class="pag-button btn btn-secondary" disabled><span><i class="fa fa-angle-double-right"></i></span></button>
         {% endif %}
