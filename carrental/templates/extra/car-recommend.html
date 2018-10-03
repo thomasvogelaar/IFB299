@@ -1,0 +1,62 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="p-4">
+  <h2>Filter Options</h2>
+  <form id="recommend" action="/recommend-car" method="get">
+    <table>{{ form }}</table>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div class="p-4">
+  <h3>Recommended Cars:</h3>
+  {% if recommended_cars %}
+    <div id="results">
+      <div class="table-responsive pl-4 pr-4 pt-1">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Car Id</th>
+                      <th>Make</th>
+                      <th>Model</th>
+                      <th>Series</th>
+                      <th>Year</th>
+                      <th>Price</th>
+                      <th>Seats</th>
+                      <th>Body Type</th>
+                      <th>Last Recorded Location</th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for car in recommended_cars %}
+                  <tr>
+                      <td><a href="cars/{{ car.id }}">{{ car.id }}</a></td>
+                      <td>{{ car.make }}</td>
+                      <td>{{ car.model }}</td>
+                      <td>{{ car.series }}</td>
+                      <td>{{ car.series_year }}</td>
+                      <td>{{ car.price }}</td>
+                      <td>{{ car.seats }}</td>
+                      <td>{{ car.bodyType }}</td>
+                      <td>
+                          {% if car.transaction_set.last.type == 'PIC' %}
+                              <span class="text-danger">WITH CUSTOMER</span>
+                          {% elif car.transaction_set.last.type == 'RET' %}
+                              <a href="/stores/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
+                          {% else %}
+                              N/A
+                          {% endif %}
+                      </td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+      </div>
+    </div>
+  {% else %}
+    <div id="results">
+      There are no results to show here.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,10 +1,13 @@
 from django.core import paginator
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from .models import Car, Customer, Store, Transaction
-from .forms import TransactionsGetForm
+from django import forms
+from django.template import Template, Context
+from .forms import TransactionsGetForm, CarRecommendForm
+from .helpers import apply_filters
 from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
 
@@ -146,3 +149,20 @@ def transactionlist(request):
 @login_required
 def transactiondetails(request, transaction_id):
     return HttpResponse("This is the details page for transaction id %s." % transaction_id)
+
+class TransactionListView(generic.ListView):
+    template_name = "core/transaction_list"
+    context_object_name = 'transaction_list'
+    paginate_by = 10
+    def get_queryset(self):
+        """ Returns a list of transactions """
+        return Transaction.objects.order_by('id')
+
+# Recommend Car form 
+def recommend_car(request: HttpRequest):
+    form = CarRecommendForm(request.GET)
+    cars = list(Car.cars.all())
+    cars = apply_filters(request, cars)
+    if (len(list(request.GET.values())) == 0):
+        return render(request, 'extra/car-recommend.html', { 'form': form })    
+    return render(request, 'extra/car-recommend.html', { 'form': form, 'recommended_cars': cars })

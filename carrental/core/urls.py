@@ -14,5 +14,6 @@ urlpatterns = [
     path('customers', login_required(views.CustomerListView.as_view()), name='customerlist'),
     path('customers/<int:pk>', login_required(views.CustomerDetailView.as_view()), name='customerdetails'),
     path('transactions', views.transactionlist, name='transactionlist'),
-    path('transactions/<int:transaction_id>', views.transactiondetails, name='transactiondetails')
+    path('transactions/<int:transaction_id>', views.transactiondetails, name='transactiondetails'),
+    path('recommend-car', views.recommend_car, name="recommendcar"),
 ]
