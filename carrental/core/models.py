@@ -66,7 +66,6 @@ class Car(models.Model):
     bodyType = models.CharField(max_length = 100)
     drive = models.CharField(max_length = 50)
     wheelbase = models.CharField(max_length = 20)
-    cars = models.Manager()
     def __str__(self):
         return self.make + ' ' + self.model + ' ' + ' ('+  self.series + '/' + self.series_year + ')'
 
