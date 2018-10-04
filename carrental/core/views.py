@@ -7,7 +7,7 @@ from .models import Car, Customer, Store, Transaction
 from django import forms
 from django.template import Template, Context
 from .forms import TransactionsGetForm, CarRecommendForm
-from .helpers import apply_filters
+from .helpers.recommend import apply_filters
 from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
 
