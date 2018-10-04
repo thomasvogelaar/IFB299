@@ -61,7 +61,7 @@
             </table>
         </div>
         {% include "../pagination.html" %}
-    {% elif media_type == 'line' %}
+    {% elif media_type == 'line' or media_type == 'pie' or media_type == 'bar' %}
         {{ chart.as_html }}
     {% endif %}
 {% else %}

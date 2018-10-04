@@ -16,7 +16,7 @@ def create_daterange(start_date, end_date):
 
 def sort_by_day(transactions, date_range):
     """
-    Creates a formatted list containing a set of headings and several sets of data.
+    Creates a formatted list containing a set of headings and several sets of data. Useful for line and bar charts
     """
     ordered_data = {}
     for transaction in transactions:
@@ -39,6 +39,20 @@ def sort_by_day(transactions, date_range):
     return formatted_data;       
 
 
+def split_by_type(transactions):
+    """
+    Returns a ratio of pickup to return rates in an array suitable for a google pie chart
+    """
+    pickups = 0
+    returns = 0
+    for transaction in transactions:
+        if transaction.type == 'PIC':
+            pickups += 1
+        else:
+            returns += 1
+    return [['Type', 'Amount'], ['Pickups', pickups], ['Returns', returns]]
+
+
 def create_chart(transactions, start_date, end_date, chart_type):
     """
     Generates a chart of the chosen type using data provided.
@@ -48,6 +62,16 @@ def create_chart(transactions, start_date, end_date, chart_type):
         ordered_data = sort_by_day(transactions, date_range)
         data_source = SimpleDataSource(ordered_data)
         return gchart.LineChart(data_source)
+    elif (chart_type == 'pie'):
+        date_range = create_daterange(start_date, end_date)
+        ordered_data = split_by_type(transactions)
+        data_source = SimpleDataSource(ordered_data)
+        return gchart.PieChart(data_source)
+    elif (chart_type == 'bar'):
+        date_range = create_daterange(start_date, end_date)
+        ordered_data = sort_by_day(transactions, date_range)
+        data_source = SimpleDataSource(ordered_data)
+        return gchart.BarChart(data_source)
 
 
 def get_transactions_by_dates(start_date, end_date):

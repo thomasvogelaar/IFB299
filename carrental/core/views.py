@@ -129,7 +129,12 @@ def transactionlist(request):
             end_date = form.cleaned_data['end_date'] + timedelta(days=1)
             transactions = get_transactions_by_dates(start_date, end_date)
 
-            chart = create_chart(transactions, start_date, end_date, 'line')
+            if form.cleaned_data['media_type'] == 'line':
+                chart = create_chart(transactions, start_date, end_date, 'line')
+            elif form.cleaned_data['media_type'] == 'pie':
+                chart = create_chart(transactions, start_date, end_date, 'pie')
+            elif form.cleaned_data['media_type'] == 'bar':
+                chart = create_chart(transactions, start_date, end_date, 'bar')
             transactions_paginator = paginator.Paginator(transactions, transactions_per_page)
             try:
                 transactions_page_obj = transactions_paginator.page(request.GET.get("page"))
@@ -150,13 +155,6 @@ def transactionlist(request):
 def transactiondetails(request, transaction_id):
     return HttpResponse("This is the details page for transaction id %s." % transaction_id)
 
-class TransactionListView(generic.ListView):
-    template_name = "core/transaction_list"
-    context_object_name = 'transaction_list'
-    paginate_by = 10
-    def get_queryset(self):
-        """ Returns a list of transactions """
-        return Transaction.objects.order_by('id')
 
 # Recommend Car form 
 def recommend_car(request: HttpRequest):
