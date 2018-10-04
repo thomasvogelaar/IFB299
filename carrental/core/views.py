@@ -159,7 +159,7 @@ def transactiondetails(request, transaction_id):
 # Recommend Car form 
 def recommend_car(request: HttpRequest):
     form = CarRecommendForm(request.GET)
-    cars = list(Car.cars.all())
+    cars = list(Car.objects.all())
     cars = apply_filters(request, cars)
     if (len(list(request.GET.values())) == 0):
         return render(request, 'extra/car-recommend.html', { 'form': form })    
