@@ -82,4 +82,4 @@ def get_transactions_by_dates(start_date, end_date):
         time__gte=start_date
     ).filter(
         time__lte=end_date
-    ).order_by('-time')
+    ).order_by('-id')

@@ -2,7 +2,10 @@
 {% block nav-customers %}<a class="nav-link active" href="/customers">Customers</a>{% endblock %}
 
 {% block content %}
-<h3 class="pl-4 pt-2">Customers</h3>
+<div class="px-2 d-flex mt-auto align-items-center justify-content-between">
+    <h3 class="pl-4 pt-2">Customers</h3>
+    <button class="btn btn-primary mr-3" style="height: 38px;">Create</button>
+</div>
     {% if customer_list %}
         <div class="table-responsive pl-4 pr-4 pt-1">
             <table class="table">
