@@ -1,5 +1,5 @@
 from django.core import paginator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
@@ -11,11 +11,9 @@ from .helpers.recommend import apply_filters
 from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
 
-
 @login_required
 def index(request):
     return render(request, 'core/index.html')
-
 
 class StoreListView(generic.ListView):
     template_name = 'core/store_list.html'
@@ -24,7 +22,6 @@ class StoreListView(generic.ListView):
     def get_queryset(self):
         """Returns a list of stores"""
         return Store.objects.order_by('id')
-
 
 class StoreDetailView(generic.DetailView):
     model = Store
@@ -44,11 +41,13 @@ class StoreDetailView(generic.DetailView):
         context["transactions_paginator"] = transactions_paginator
         return context
 
-
 @login_required
 def carlist(request):
-    return HttpResponse("This is the list of cars")
+    return HttpResponse("This is the list page for cars")
 
+@login_required
+def storelist(request):
+    return HttpResponse("This is the list page for stores")
 
 @login_required
 def cardetails(request, car_id):
@@ -61,7 +60,6 @@ class CarListView(generic.ListView):
     def get_queryset(self):
         """Returns a list of cars"""
         return Car.objects.order_by('id')
-
 
 class CarDetailView(generic.DetailView):
     model = Car
@@ -81,7 +79,6 @@ class CarDetailView(generic.DetailView):
         context["transactions_paginator"] = transactions_paginator
         return context
 
-
 class CustomerListView(generic.ListView):
     template_name = 'core/customer_list.html'
     context_object_name = 'customer_list'
@@ -89,7 +86,6 @@ class CustomerListView(generic.ListView):
     def get_queryset(self):
         """Returns a list of customers"""
         return Customer.objects.order_by('id')
-
 
 class CustomerDetailView(generic.DetailView):
     model = Customer
@@ -111,6 +107,7 @@ class CustomerDetailView(generic.DetailView):
 
 
 @login_required
+@permission_required("core.view_transaction")
 def transactionlist(request):
     """
     Generates the data required for the transactions list view.
@@ -152,6 +149,7 @@ def transactionlist(request):
 
 
 @login_required
+@permission_required("core.view_transaction")
 def transactiondetails(request, transaction_id):
     return HttpResponse("This is the details page for transaction id %s." % transaction_id)
 

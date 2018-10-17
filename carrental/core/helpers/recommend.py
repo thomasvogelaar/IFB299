@@ -41,7 +41,7 @@ def filter_cars(collection: list, field: str, value: str):
 def check_val(check_type: str, value, constraints: list, isAge: bool):
     if isAge:
         value = datetime.datetime.now().year - int(value)
-    if not constraints[0] or check_type == 'between' and not constraints[1]:
+    if not constraints[0] or (check_type == 'between' and not constraints[1]):
         return True
     elif (check_type == "between"):
         return (int(value) > int(constraints[0]) and int(value) < int(constraints[1]))
