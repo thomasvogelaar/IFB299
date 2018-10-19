@@ -25,6 +25,7 @@ urlpatterns = [
     path('customers/<int:pk>',
         permission_required("core.view_customer")
         (login_required(views.CustomerDetailView.as_view())), name='customerdetails'),
+    path('customers/create', login_required(views.CustomerCreateForm.as_view()), name='customerform'),
     path('transactions', views.transactionlist, name='transactionlist'),
     path('transactions/<int:transaction_id>', views.transactiondetails, name='transactiondetails'),
     path('recommend-car', views.recommend_car, name="recommendcar"),

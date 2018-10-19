@@ -106,6 +106,13 @@ class CustomerDetailView(generic.DetailView):
         return context
 
 
+class CustomerCreateForm(generic.edit.CreateView):
+    """ Represents the customer create form view. """
+    # The Generic CreateView class automatically searches for template core/customer_form
+    model = Customer
+    fields = ['name', 'phone', 'address', 'birthday', 'occupation', 'gender']
+
+
 @login_required
 @permission_required("core.view_transaction")
 def transactionlist(request):
@@ -126,6 +133,7 @@ def transactionlist(request):
             end_date = form.cleaned_data['end_date'] + timedelta(days=1)
             transactions = get_transactions_by_dates(start_date, end_date)
 
+            chart = {}
             if form.cleaned_data['media_type'] == 'line':
                 chart = create_chart(transactions, start_date, end_date, 'line')
             elif form.cleaned_data['media_type'] == 'pie':

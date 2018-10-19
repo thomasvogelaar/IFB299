@@ -1,5 +1,6 @@
 from django import forms
 from bootstrap_datepicker_plus import DatePickerInput
+from .models import Car, Customer, Store, Transaction
 
 class TransactionsGetForm(forms.Form):
     start_date = forms.DateField(label="Start Date", widget=DatePickerInput(attrs={'class': 'form-control' }))
