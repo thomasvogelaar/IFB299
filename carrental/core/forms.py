@@ -3,14 +3,14 @@ from bootstrap_datepicker_plus import DatePickerInput
 from .models import Car, Customer, Store, Transaction
 
 class TransactionsGetForm(forms.Form):
-    start_date = forms.DateField(label="Start Date", widget=DatePickerInput(attrs={'class': 'form-control' }))
-    end_date = forms.DateField(label="End Date", widget=DatePickerInput(attrs={'class': 'form-control' }))
+    """ This form is found at the top of the transctions list """
     media_choices = (('table', 'Table'), ('line', 'Line Graph'), ('pie', 'Pie Graph'), ('bar', 'Bar Graph'))
     start_date = forms.DateField(label="Start Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }))
     end_date = forms.DateField(label="End Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }))
     media_type = forms.ChoiceField(choices=media_choices, widget=forms.Select(attrs={ 'class': 'form-control' }))
 
 class CarRecommendForm(forms.Form):
+    """ This is the car recommendation form """
     make = forms.CharField(required=False)
     model = forms.CharField(required=False)
     car_age = forms.ChoiceField(required=False)

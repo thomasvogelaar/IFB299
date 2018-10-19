@@ -4,7 +4,7 @@ import sys
 import os
 import django
 
-project_dir = "/Users/deanm/source/repos/djangoWebsite/carrental/"
+project_dir = "../carrental/"
 
 sys.path.append(project_dir)
 
@@ -14,7 +14,7 @@ django.setup()
 
 from core.models import Store
 
-data = csv.reader(open("/Users/deanm/source/repos/djangoWebsite/carrental/Data/Store.csv"), delimiter = ",")
+data = csv.reader(open("./Data/Store.csv"), delimiter = ",")
 
 for row in Store:
     if row[0] != 'create_data':

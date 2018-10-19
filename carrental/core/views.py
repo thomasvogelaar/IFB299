@@ -140,6 +140,8 @@ def transactionlist(request):
                 chart = create_chart(transactions, start_date, end_date, 'pie')
             elif form.cleaned_data['media_type'] == 'bar':
                 chart = create_chart(transactions, start_date, end_date, 'bar')
+            else:
+                chart = {}
             transactions_paginator = paginator.Paginator(transactions, transactions_per_page)
             try:
                 transactions_page_obj = transactions_paginator.page(request.GET.get("page"))
