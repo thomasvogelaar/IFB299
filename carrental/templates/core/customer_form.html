@@ -1,10 +1,55 @@
 {% extends "../base.html" %}
+{% load includecss %}
 {% block nav-customers %}<a class="nav-link active" href="/customers">Customers</a>{% endblock %}
 
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
+<div class="mx-4">
+    <div style="max-width: 900px;" class="mx-auto">
+        <h1 class="pt-3">Create Customer</h1>
+        {{ form.media }}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="pt-2 pb-4">
+                <div class="py-2">
+                    {% csrf_token %}
+                    {{ form.name.errors }}
+                    <label for="{{ form.name.id_for_label }}">Name</label>
+                    {{ form.name|includecss:"form-control" }}
+                </div>
+                <div class="py-2">
+                    {{ form.address.errors }}
+                    <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{ form.address|includecss:"form-control" }}
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px;">
+                        {{ form.phone.errors }}
+                        <label for="{{ form.phone.id_for_label }}">Phone</label>
+                        {{ form.phone|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px">
+                        {{ form.birthday.errors }}
+                        <label for="{{ form.birthday.id_for_label }}">Birthday</label>
+                        {{ form.birthday }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px;">
+                        {{ form.occupation.errors }}
+                        <label for="{{ form.occupation.id_for_label }}">Occupation</label>
+                        {{ form.occupation|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px">
+                        {{ form.gender.errors }}
+                        <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                        {{ form.gender|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="p-2">
+                    <input type="submit" value="Submit" class="btn btn-primary pl-auto" style="height: 38px; float: right;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

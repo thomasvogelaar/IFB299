@@ -10,6 +10,7 @@ from .forms import TransactionsGetForm, CarRecommendForm
 from .helpers.recommend import apply_filters
 from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
+from bootstrap_datepicker_plus import DatePickerInput
 
 @login_required
 def index(request):
@@ -111,6 +112,12 @@ class CustomerCreateForm(generic.edit.CreateView):
     # The Generic CreateView class automatically searches for template core/customer_form
     model = Customer
     fields = ['name', 'phone', 'address', 'birthday', 'occupation', 'gender']
+
+    def get_form(self, form_class=None):
+        if form_class is None: form_class = self.get_form_class()
+        form = super(CustomerCreateForm, self).get_form(form_class)
+        form.fields['birthday'].widget = DatePickerInput()
+        return form
 
 
 @login_required

@@ -9,6 +9,7 @@ class TransactionsGetForm(forms.Form):
     end_date = forms.DateField(label="End Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }))
     media_type = forms.ChoiceField(choices=media_choices, widget=forms.Select(attrs={ 'class': 'form-control' }))
 
+
 class CarRecommendForm(forms.Form):
     """ This is the car recommendation form """
     make = forms.CharField(required=False)
