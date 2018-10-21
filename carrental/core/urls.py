@@ -6,7 +6,9 @@ from . import views
 app_name = 'core'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.index),
+    path('browsecars', views.ExternalCastListView.as_view(), name='externalcarlist'),
+    path('dashboard', views.dashboard, name='dashboard'),
     path('stores',
         permission_required("core.view_store")
         (login_required(views.StoreListView.as_view())), name='storelist'),

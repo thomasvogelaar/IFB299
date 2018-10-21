@@ -12,9 +12,12 @@ from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
 from bootstrap_datepicker_plus import DatePickerInput
 
-@login_required
 def index(request):
     return render(request, 'core/index.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'core/dashboard.html')
 
 class StoreListView(generic.ListView):
     template_name = 'core/store_list.html'
@@ -42,17 +45,15 @@ class StoreDetailView(generic.DetailView):
         context["transactions_paginator"] = transactions_paginator
         return context
 
-@login_required
-def carlist(request):
-    return HttpResponse("This is the list page for cars")
 
-@login_required
-def storelist(request):
-    return HttpResponse("This is the list page for stores")
+class ExternalCastListView(generic.ListView):
+    template_name = 'core/external_car_list.html'
+    context_object_name = 'car_list'
+    paginate_by = 10
+    def get_queryset(self):
+        """ Returns a list of available cars """
+        return Car.objects.order_by('id').filter(transaction__type='PIC').distinct()
 
-@login_required
-def cardetails(request, car_id):
-    return HttpResponse("This is the details page for car id %s." % car_id)
 
 class CarListView(generic.ListView):
     template_name = 'core/car_list.html'
@@ -61,6 +62,7 @@ class CarListView(generic.ListView):
     def get_queryset(self):
         """Returns a list of cars"""
         return Car.objects.order_by('id')
+
 
 class CarDetailView(generic.DetailView):
     model = Car
@@ -80,6 +82,7 @@ class CarDetailView(generic.DetailView):
         context["transactions_paginator"] = transactions_paginator
         return context
 
+
 class CustomerListView(generic.ListView):
     template_name = 'core/customer_list.html'
     context_object_name = 'customer_list'
@@ -87,6 +90,7 @@ class CustomerListView(generic.ListView):
     def get_queryset(self):
         """Returns a list of customers"""
         return Customer.objects.order_by('id')
+
 
 class CustomerDetailView(generic.DetailView):
     model = Customer
