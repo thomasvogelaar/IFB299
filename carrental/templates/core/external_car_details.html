@@ -41,13 +41,17 @@
         <div>
         <span class="lead" style="color: black; text-align:center; width: auto; padding-top: 10px">{{ car.make }} {{ car.model }} {{ car.series }} {{ car.series_year }}</span>
         <div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em;">
-            <div class="entity-left-content">
+            <div class="entity-left-content" style="width: 48%; display: inline-block">
                 <!-- FIXME Styling -->
+                <div class="detail-head">Make</div> <div class="detail-body">${{ car.make }}</div>
+                <div class="detail-head">Model</div> <div class="detail-body">${{ car.model }}</div>
                 <div class="detail-head">Series/Year</div> <div class="detail-body">{{ car.series }}/{{ car.series_year }}</div>
                 <div class="detail-head">Price</div> <div class="detail-body">${{ car.price }}</div>
                 <div class="detail-head">Seats</div> <div class="detail-body">{{ car.seats }}</div>
                 <div class="detail-head">Engine Size</div> <div class="detail-body">{{ car.enginesize }}</div>
                 <div class="detail-head">Fuel System</div> <div class="detail-body">{{ car.fuelsystem }}</div>
+            </div>
+            <div class="entity-left-content" style="width: 48%; display: inline-block; vertical-align: top;">
                 <div class="detail-head">Tank Capacity</div> <div class="detail-body">{{ car.tankcapacity }}</div>
                 <div class="detail-head">Power</div> <div class="detail-body">{{ car.power }}</div>
                 <div class="detail-head">Standard Transmission</div> <div class="detail-body">{{ car.standardtransmission }}</div>
