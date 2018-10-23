@@ -46,13 +46,19 @@ class StoreDetailView(generic.DetailView):
         return context
 
 
-class ExternalCastListView(generic.ListView):
+class ExternalCarListView(generic.ListView):
     template_name = 'core/external_car_list.html'
     context_object_name = 'car_list'
     paginate_by = 10
     def get_queryset(self):
         """ Returns a list of available cars """
         return Car.objects.order_by('transaction__time')
+
+
+class ExternalCarDetailView(generic.DetailView):
+    model = Car
+    template_name = 'core/external_car_details.html'
+    transactions_paginate_by = 10
 
 
 class CarListView(generic.ListView):
