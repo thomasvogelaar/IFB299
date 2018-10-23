@@ -44,10 +44,12 @@
 					<ul class="nav navbar-nav navbar-right animate">
 						<li><a href="">Home</a></li>
 						<li><a href="#services">Services</a></li>
-						<li><a href="#services">Find A Vehicle</a></li>
+						<li><a href="/browsecars">Vehicle Availabilities</a></li>
+						<li><a href="/recommend-car">Find A Vehicle</a></li>
 						<li><a href="/accounts/login">Sign In</a></li>
 						<li><a href="/accounts/logout">Logout</a></li>
 						<li><a href="#contact">Contact</a></li>
+						{% if user.is_authenticated %}<li><a href="/dashboard">Dashboard</a></li>{% endif %}
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -60,7 +62,7 @@
 					<ul class="text-slider clearfix">
 						<li class="clearfix">
 							<span class="lead">Car Rental Company</span>
-							<a href="#home" class="btn btn-primary outline-outward">SIGN IN</a>
+							<a href="/accounts/login" class="btn btn-primary outline-outward">SIGN IN</a>
 						</li>
 						<li class="clearfix">
 							<span class="lead">Discover Our Services</span>
