@@ -52,7 +52,7 @@ class ExternalCastListView(generic.ListView):
     paginate_by = 10
     def get_queryset(self):
         """ Returns a list of available cars """
-        return Car.objects.order_by('id').filter(transaction__type='PIC').distinct()
+        return Car.objects.order_by('transaction__time')
 
 
 class CarListView(generic.ListView):

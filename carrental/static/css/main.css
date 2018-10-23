@@ -256,7 +256,7 @@ a:focus {
 }
 .navbar-nav > li:first-child > a:before,
 .nav-pills > li:first-child > a:before {
-	content: " ";
+	content: "";
 	padding: 0;
 }
 .nav-pills > li.active > a,

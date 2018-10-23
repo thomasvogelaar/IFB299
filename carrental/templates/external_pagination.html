@@ -1,0 +1,46 @@
+{% load url_replace %}
+<!-- Temporary bootstrap fix -->
+<style>
+    .pr-1 {
+        width: 25px;
+        display: inline-block;
+    }
+    .d-flex {
+        display: inline-block;
+    }
+</style>
+<div class="d-flex justify-content-end pr-4">
+    <div class="pr-1">
+        {% if page_obj.has_previous %}
+            <a href="?{% url_replace request 'page' 1 %}"><button class="pag-button"><i class="fa fa-angle-double-left"></i></button></a>
+        {% else %}
+            <button class="pag-button" disabled><span><i class="fa fa-angle-double-left"></i></span></button>
+        {% endif %}
+    </div>
+    <div class="pr-1">
+        {% if page_obj.has_previous %}
+            <a href="?{% url_replace request 'page' page_obj.previous_page_number %}"><button class="pag-button"><i class="fa fa-angle-left"></i></button></a>
+        {% else %}
+            <button class="pag-button" disabled><span><i class="fa fa-angle-left"></i></span></button>
+        {% endif %}
+    </div>
+    <div class="pr-1">
+        <button class="pag-button font-weight-bold" disabled >
+            {% if page_obj %} {{ page_obj.number }} {% else %} 1 {% endif %}
+        </button>
+    </div>
+    <div class="pr-1">
+        {% if page_obj.has_next %}
+            <a href="?{% url_replace request 'page' page_obj.next_page_number %}"><button class="pag-button"><i class="fa fa-angle-right"></i></button></a>
+        {% else %}
+            <button class="pag-button" disabled><span><i class="fa fa-angle-right"></i></span></button>
+        {% endif %}
+    </div>
+    <div class="pr-1">
+        {% if page_obj.has_next %}
+            <a href="?{% url_replace request 'page' paginator.num_pages %}"><button class="pag-button"><i class="fa fa-angle-double-right"></i></button></a>
+        {% else %}
+            <button class="pag-button" disabled><span><i class="fa fa-angle-double-right"></i></span></button>
+        {% endif %}
+    </div>
+</div>

@@ -1,8 +1,8 @@
-# IFB299
+# IFB299 - Group 32
 Our IFB299 Car Rental Company System
 
 
-# Requirements
+## Requirements
 * Python 3.6
 * Djano 2.0.7
 * MySQL with Legacy Authentication
