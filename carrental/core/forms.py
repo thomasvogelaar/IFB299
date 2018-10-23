@@ -28,10 +28,10 @@ class CarRecommendForm(forms.Form):
         ("BETWEEN 2553 AND 2877", "Medium"),
         ("> 2877", "Large"))
     car_age.choices = (
-        ("> 5", "> 5 years"),
+        ("< 5", "< 5 years"),
         ("BETWEEN 5 AND 10", "5 - 10 years"),
         ("BETWEEN 10 AND 15", "10 - 15 years"),
         ("BETWEEN 15 AND 20", "15 - 20 years"),
         ("BETWEEN 20 AND 25", "20 - 25 years"),
         ("BETWEEN 25 AND 30", "25 - 30 years"),
-        ("< 30", "< 30 years"))
+        ("> 30", "> 30 years"))

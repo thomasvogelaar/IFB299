@@ -73,6 +73,10 @@ a:focus {
 	height: 100px;
 }
 
+.navbar-brand-sub > img {
+	height: 80px;
+}
+
 .navbar-nav > li > a {
 	color: #fff;
 }
