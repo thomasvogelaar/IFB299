@@ -56,6 +56,7 @@ class ExternalCastListView(generic.ListView):
 
 
 class CarListView(generic.ListView):
+    """Generic list view class for Car model"""
     template_name = 'core/car_list.html'
     context_object_name = 'car_list'
     paginate_by = 10
