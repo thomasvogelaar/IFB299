@@ -18,6 +18,7 @@
                         <th>Birthday</th>
                         <th>Occupation</th>
                         <th>Gender</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,7 @@
                         <td>{{ customer.birthday }}</td>
                         <td>{{ customer.get_occupation_display }}</td>
                         <td>{{ customer.get_gender_display }}</td>
+                        <td><a href="customers/{{ customer.id }}/edit"><i class="far fa-edit"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

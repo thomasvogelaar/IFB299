@@ -2,7 +2,7 @@
 {% block nav-customers %}<a class="nav-link active" href="/customers">Customers</a>{% endblock %}
 {% block left-header %}
     <img src="/static/images/customer.png" class="entity-image">
-    <h4 class="entity-title pb-4">{{ customer.name }}</h4>
+    <h4 class="entity-title pb-4">{{ customer.name }} <a href="{{ customer.id }}/edit"><i class="far fa-edit"></i></a></h4>
 {% endblock %}
 {% block left-content %}
     <div class="detail-head">Phone Number</div> <div class="detail-body">{{ customer.phone }}</div>
