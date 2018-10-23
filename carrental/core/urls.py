@@ -28,7 +28,12 @@ urlpatterns = [
     path('customers/<int:pk>',
         permission_required("core.view_customer")
         (login_required(views.CustomerDetailView.as_view())), name='customerdetails'),
-    path('customers/create', login_required(views.CustomerCreateForm.as_view()), name='customerform'),
+    path('customers/create',
+        permission_required("core.view_customer")
+        (login_required(views.CustomerCreateForm.as_view())), name='customercreateform'),
+    path('customers/<int:pk>/edit',
+        permission_required("core.view_customer")
+        (login_required(views.CustomerUpdateForm.as_view())), name='customerupdateform'),
     path('transactions', views.transactionlist, name='transactionlist'),
     path('recommend-car', views.recommend_car, name="recommendcar"),
 ]

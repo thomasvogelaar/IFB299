@@ -131,12 +131,27 @@ class CustomerCreateForm(generic.edit.CreateView):
     # The Generic CreateView class automatically searches for template core/customer_form
     model = Customer
     fields = ['name', 'phone', 'address', 'birthday', 'occupation', 'gender']
-    success_url = '/customers?success=true'
+    success_url = '/customers?createsuccess=true'
 
     def get_form(self, form_class=None):
         """ Extending the generic createview get_form function to change the birthday form field widget. """
         if form_class is None: form_class = self.get_form_class()
         form = super(CustomerCreateForm, self).get_form(form_class)
+        form.fields['birthday'].widget = DatePickerInput()
+        return form
+
+
+class CustomerUpdateForm(generic.edit.UpdateView):
+    """ Represents the customer update form view. """
+    # The Generic UpdateView class automatically searches for template core/customer_form
+    model = Customer
+    fields = ['name', 'phone', 'address', 'birthday', 'occupation', 'gender']
+    success_url = '/customers?updatesuccess=true'
+
+    def get_form(self, form_class=None):
+        """ Extending the generic updateview get_form function to change the birthday form field widget. """
+        if form_class is None: form_class = self.get_form_class()
+        form = super(CustomerUpdateForm, self).get_form(form_class)
         form.fields['birthday'].widget = DatePickerInput()
         return form
 
