@@ -33,7 +33,7 @@
                             {% if car.transaction_set.last.type == 'PIC' %}
                                 <span class="text-danger">Unavailable</span>
                             {% elif car.transaction_set.last.type == 'RET' %}
-                                <a href="/stores/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
+                                <a href="/storedetails/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
                             {% else %}
                                 N/A
                             {% endif %}
