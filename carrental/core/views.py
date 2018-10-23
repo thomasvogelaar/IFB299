@@ -13,13 +13,16 @@ from .helpers.transactions import create_chart, get_transactions_by_dates
 from bootstrap_datepicker_plus import DatePickerInput
 
 def index(request):
+    """ Renders the main screen template. """
     return render(request, 'core/index.html')
 
 @login_required
 def dashboard(request):
+    """ Renders the dashboard template. """
     return render(request, 'core/dashboard.html')
 
 class StoreListView(generic.ListView):
+    """ Represents the car list view. Extends the generic list view class. """
     template_name = 'core/store_list.html'
     context_object_name = 'store_list'
     paginate_by = 10
@@ -28,6 +31,7 @@ class StoreListView(generic.ListView):
         return Store.objects.order_by('id')
 
 class StoreDetailView(generic.DetailView):
+    """ Represents the store detail view. Extends the generic detail view class. """
     model = Store
     template_name = 'core/store_details.html'
     transactions_paginate_by = 10
@@ -47,6 +51,7 @@ class StoreDetailView(generic.DetailView):
 
 
 class ExternalCarListView(generic.ListView):
+    """ Represents the external car list view. Extends the generic list view class. """
     template_name = 'core/external_car_list.html'
     context_object_name = 'car_list'
     paginate_by = 10
@@ -62,7 +67,7 @@ class ExternalCarDetailView(generic.DetailView):
 
 
 class CarListView(generic.ListView):
-    """Generic list view class for Car model"""
+    """ Represents the car list view. Extends the generic list view class. """
     template_name = 'core/car_list.html'
     context_object_name = 'car_list'
     paginate_by = 10
@@ -72,6 +77,7 @@ class CarListView(generic.ListView):
 
 
 class CarDetailView(generic.DetailView):
+    """ Represents the car detail view. Extends the generic detail view class. """
     model = Car
     template_name = 'core/car_details.html'
     transactions_paginate_by = 10
@@ -91,6 +97,7 @@ class CarDetailView(generic.DetailView):
 
 
 class CustomerListView(generic.ListView):
+    """  Represents the customer list view. Extends the generic list view class. """
     template_name = 'core/customer_list.html'
     context_object_name = 'customer_list'
     paginate_by = 10
@@ -100,6 +107,7 @@ class CustomerListView(generic.ListView):
 
 
 class CustomerDetailView(generic.DetailView):
+    """ Represents the customer detail view. Extends the generic detail view class. """
     model = Customer
     template_name = 'core/customer_details.html'
     transactions_paginate_by = 10
@@ -126,6 +134,7 @@ class CustomerCreateForm(generic.edit.CreateView):
     success_url = '/customers?success=true'
 
     def get_form(self, form_class=None):
+        """ Extending the generic createview get_form function to change the birthday form field widget. """
         if form_class is None: form_class = self.get_form_class()
         form = super(CustomerCreateForm, self).get_form(form_class)
         form.fields['birthday'].widget = DatePickerInput()
@@ -177,14 +186,8 @@ def transactionlist(request):
     return render(request, 'core/transaction_list.html', context)
 
 
-@login_required
-@permission_required("core.view_transaction")
-def transactiondetails(request, transaction_id):
-    return HttpResponse("This is the details page for transaction id %s." % transaction_id)
-
-
-# Recommend Car form 
 def recommend_car(request: HttpRequest):
+    """ Renders the recommend car form. """
     form = CarRecommendForm(request.GET)
     cars = list(Car.objects.all())
     cars = apply_filters(request, cars)
