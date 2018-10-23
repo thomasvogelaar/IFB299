@@ -1,6 +1,6 @@
 /*
  * A Design by GraphBerry
- * Author: Morie Hawas
+ * Edited by: Morie Hawas
  * Author URL: http://graphberry.com
  * License: http://graphberry.com/pages/license
  */
@@ -62,11 +62,7 @@ a:focus {
 }
 
 .navbar-small .navbar-brand > img {
-	height: 80px;
-}
-
-.navbar-small .navbar-brand {
-	padding: 5px 150px 0 0;
+	height: 60px;
 }
 
 .nav > li > a {
@@ -74,7 +70,7 @@ a:focus {
 }
 
 .navbar-brand > img {
-	height: 150px;
+	height: 100px;
 }
 
 .navbar-nav > li > a {
@@ -312,7 +308,7 @@ blockquote {
 	z-index: 1000;
 }
 .numbers {
-	background-image: url('../images/es/we-are-proud.jpg');
+	background-image: url('../images/we-are-proud.jpg');
 	background-size: cover;
 background-attachment: fixed;
 }
