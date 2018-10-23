@@ -311,18 +311,6 @@ blockquote {
 	color: #fff;
 	z-index: 1000;
 }
-.numbers {
-	background-image: url('../images/we-are-proud.jpg');
-	background-size: cover;
-background-attachment: fixed;
-}
-.process {
-	background: url('../images/how-we-do-it.jpg') 0px 0px no-repeat;
-	
-background-size: cover;
-background-attachment: fixed;
-
-}
 
 .number-item {
 	text-align: center;
