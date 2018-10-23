@@ -136,10 +136,13 @@ function singlePageNav() {
         menuItems = topMenu.find("a"),
         // Anchors corresponding to menu items
         scrollItems = menuItems.map(function () {
-            var item = $($(this).attr("href"));
-            if (item.length) {
-                return item;
-            }
+			var selector = $(this).attr("href");
+			if (selector.charAt(0) == '#') {
+				var item = $();
+				if (item.length) {
+					return item;
+				}
+			} 
         });
 
 	$('a[href*=#]').each(function () {
