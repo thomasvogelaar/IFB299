@@ -30,6 +30,7 @@
 						<li><a href="/recommend-car">Find A Vehicle</a></li>
 						<li><a href="/accounts/login">Sign In</a></li>
 						<li><a href="/accounts/logout">Logout</a></li>
+						{% if user.is_authenticated %}<li><a href="/dashboard">Dashboard</a></li>{% endif %}
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
