@@ -18,12 +18,6 @@ def index(request):
     return render(request, 'core/index.html')
 
 
-@login_required
-def dashboard(request):
-    """ Renders the dashboard template. """
-    return render(request, 'core/dashboard.html')
-
-
 class StoreListView(generic.ListView):
     """ Represents the car list view. Extends the generic list view class. """
     template_name = 'core/store_list.html'
