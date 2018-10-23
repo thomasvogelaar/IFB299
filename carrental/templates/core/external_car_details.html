@@ -1,85 +1,24 @@
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jquery.bxslider.css' %}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Car Rental Company</title>
-	<link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
-	<script src="{% static 'js/modernizr.custom.js' %}"></script>
-	<!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
-<body>
-	<div id="wrapper">
-		<!-- Fixed navbar -->
-		<div class="navbar navbar-smak navbar-fixed-top " id="navbar" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></button>
-					<a class="navbar-brand navbar-brand-sub animate" href="#"><img src="{% static 'images/logo.png' %}" alt="logo1"></a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right animate">
-						<li><a href="/">Home</a></li>
-						<li><a href="/browsecars">Vehicles</a></li>
-						<li><a href="/recommend-car">Find A Vehicle</a></li>
-						<li><a href="/accounts/login">Sign In</a></li>
-						<li><a href="/accounts/logout">Logout</a></li>
-						{% if user.is_authenticated %}<li><a href="/dashboard">Dashboard</a></li>{% endif %}
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
-			</div>
-		</div>
-		<div id="home" class="home" style="height:110px; background-size: cover; background-position: center"></div>
-        <div>
-        <span class="lead" style="color: black; text-align:center; width: auto; padding-top: 10px">{{ car.make }} {{ car.model }} {{ car.series }} {{ car.series_year }}</span>
-        <div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em;">
-            <div class="entity-left-content" style="width: 48%; display: inline-block">
-                <!-- FIXME Styling -->
-                <div class="detail-head">Make</div> <div class="detail-body">${{ car.make }}</div>
-                <div class="detail-head">Model</div> <div class="detail-body">${{ car.model }}</div>
-                <div class="detail-head">Series/Year</div> <div class="detail-body">{{ car.series }}/{{ car.series_year }}</div>
-                <div class="detail-head">Price</div> <div class="detail-body">${{ car.price }}</div>
-                <div class="detail-head">Seats</div> <div class="detail-body">{{ car.seats }}</div>
-                <div class="detail-head">Engine Size</div> <div class="detail-body">{{ car.enginesize }}</div>
-                <div class="detail-head">Fuel System</div> <div class="detail-body">{{ car.fuelsystem }}</div>
-            </div>
-            <div class="entity-left-content" style="width: 48%; display: inline-block; vertical-align: top;">
-                <div class="detail-head">Tank Capacity</div> <div class="detail-body">{{ car.tankcapacity }}</div>
-                <div class="detail-head">Power</div> <div class="detail-body">{{ car.power }}</div>
-                <div class="detail-head">Standard Transmission</div> <div class="detail-body">{{ car.standardtransmission }}</div>
-                <div class="detail-head">Body Type</div> <div class="detail-body">{{ car.bodyType }}</div>
-                <div class="detail-head">Drive</div> <div class="detail-body">{{ car.drive }}</div>
-                <div class="detail-head">Wheel Base</div> <div class="detail-body">{{ car.wheelbase }}</div>
-            </div>
-        </div>
-		<footer>
-			<div class="container">
-				<p>&copy; Copyright <a href="">CarRentalCompany.com</a> 2018 All rights reserved</p>
-				<ul class="social-list">
-					<li class="facebook">
-						<a href="#home"><i class="fa fa-facebook"></i></a>
-					</li>
-					<li class="twitter">
-						<a href="#home"><i class="fa fa-twitter"></i></a>
-					</li>
-					<li class="dribbble">
-						<a href="#home">	<i class="fa fa-dribbble"></i></a>
-					</li>
-					<li class="youtube">
-						<a href="#"><i class="fa fa-youtube"></i></a>
-					</li>
-				</ul>
-			</div>
-		</footer>
-	</div>
-	</script>
-</body>
-</html>
+{% extends '../external_base.html' %}
+{% block title %} {{ car.make }} {{ car.model }} {{ car.series }} {{ car.series_year }} {% endblock %}
+{% block content %}
+<div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em;">
+    <div class="entity-left-content" style="width: 48%; display: inline-block">
+        <!-- FIXME Styling -->
+        <div class="detail-head">Make</div> <div class="detail-body">${{ car.make }}</div>
+        <div class="detail-head">Model</div> <div class="detail-body">${{ car.model }}</div>
+        <div class="detail-head">Series/Year</div> <div class="detail-body">{{ car.series }}/{{ car.series_year }}</div>
+        <div class="detail-head">Price</div> <div class="detail-body">${{ car.price }}</div>
+        <div class="detail-head">Seats</div> <div class="detail-body">{{ car.seats }}</div>
+        <div class="detail-head">Engine Size</div> <div class="detail-body">{{ car.enginesize }}</div>
+        <div class="detail-head">Fuel System</div> <div class="detail-body">{{ car.fuelsystem }}</div>
+    </div>
+    <div class="entity-left-content" style="width: 48%; display: inline-block; vertical-align: top;">
+        <div class="detail-head">Tank Capacity</div> <div class="detail-body">{{ car.tankcapacity }}</div>
+        <div class="detail-head">Power</div> <div class="detail-body">{{ car.power }}</div>
+        <div class="detail-head">Standard Transmission</div> <div class="detail-body">{{ car.standardtransmission }}</div>
+        <div class="detail-head">Body Type</div> <div class="detail-body">{{ car.bodyType }}</div>
+        <div class="detail-head">Drive</div> <div class="detail-body">{{ car.drive }}</div>
+        <div class="detail-head">Wheel Base</div> <div class="detail-body">{{ car.wheelbase }}</div>
+    </div>
+</div>
+{% endblock %}
