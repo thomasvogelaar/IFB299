@@ -8,7 +8,8 @@ app_name = 'core'
 urlpatterns = [
     path('', views.index),
     path('browsecars', views.ExternalCarListView.as_view(), name='externalcarlist'),
-    path('cardetails/<int:pk>', views.ExternalCarDetailView.as_view(), name='externalcarddetails'),
+    path('cardetails/<int:pk>', views.ExternalCarDetailView.as_view(), name='externalcardetails'),
+    path('storedetails/<int:pk>', views.ExternalStoreDetailView.as_view(), name='externalstoredetails'),
     path('dashboard', views.dashboard, name='dashboard'),
     path('stores',
         permission_required("core.view_store")

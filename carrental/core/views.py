@@ -1,25 +1,28 @@
 from django.core import paginator
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from .models import Car, Customer, Store, Transaction
 from django import forms
 from django.template import Template, Context
-from .forms import TransactionsGetForm, CarRecommendForm
+from .forms import TransactionsGetForm, CarRecommendForm, ExternalStoreSelectForm
 from .helpers.recommend import apply_filters
 from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
 from bootstrap_datepicker_plus import DatePickerInput
 
+
 def index(request):
     """ Renders the main screen template. """
     return render(request, 'core/index.html')
+
 
 @login_required
 def dashboard(request):
     """ Renders the dashboard template. """
     return render(request, 'core/dashboard.html')
+
 
 class StoreListView(generic.ListView):
     """ Represents the car list view. Extends the generic list view class. """
@@ -29,6 +32,7 @@ class StoreListView(generic.ListView):
     def get_queryset(self):
         """Returns a list of stores"""
         return Store.objects.order_by('id')
+
 
 class StoreDetailView(generic.DetailView):
     """ Represents the store detail view. Extends the generic detail view class. """
@@ -61,9 +65,28 @@ class ExternalCarListView(generic.ListView):
 
 
 class ExternalCarDetailView(generic.DetailView):
+    """ Represents the external car details view. Extends the generic details view class. """
     model = Car
     template_name = 'core/external_car_details.html'
-    transactions_paginate_by = 10
+
+
+class ExternalStoreDetailView(generic.DetailView):
+    """ Represents the external store details view. Extends the generic details view class. """
+    model = Store
+    template_name = 'core/external_store_details.html'
+    def get_context_data(self, **kwargs):
+        context = super(ExternalStoreDetailView, self).get_context_data(**kwargs)
+        print(context)
+        form = ExternalStoreSelectForm(initial={'store': context['store'].id})
+        context['form'] = form
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if (request.GET.get('store') is not None):
+            return HttpResponseRedirect(request.GET.get('store'))
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 class CarListView(generic.ListView):

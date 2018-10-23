@@ -1,0 +1,23 @@
+{% extends '../external_base.html' %}
+{% block title %} {{ store.name }} {% if store == None %} No Stores Available {% endif %}{% endblock %}
+{% block content %}
+<div style="padding-right: 2em; text-align: right;">
+    <form action="" method="GET">
+        {{ form }}
+        <button type="submit">Change</button>
+    </form>
+</div>
+<div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em; width: 100%;">
+        <!-- FIXME Styling -->
+    <div class="entity-left-content" style="width: 48%; display: inline-block">
+        <div class="detail-head">Store</div> <div class="detail-body">{{ store.name }}</div>
+        <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
+        <div class="detail-head">City</div> <div class="detail-body">{{ store.city }}</div>
+    </div>
+    <div class="entity-left-content" style="width: 48%; display: inline-block; vertical-align: top;">
+        <div class="detail-head">State</div> <div class="detail-body">{{ store.state }}</div>
+        <div class="detail-head">Phone</div> <div class="detail-body">{{ store.phone }}</div>
+    </div>
+    LIST OF AVAILABLE CARS HERE
+</div>
+{% endblock %}

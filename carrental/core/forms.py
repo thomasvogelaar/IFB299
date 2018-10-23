@@ -10,6 +10,11 @@ class TransactionsGetForm(forms.Form):
     media_type = forms.ChoiceField(choices=media_choices, widget=forms.Select(attrs={ 'class': 'form-control' }))
 
 
+class ExternalStoreSelectForm(forms.Form):
+    """ This form is found at the top of the external store page """
+    store = forms.ModelChoiceField(queryset=Store.objects.all(), empty_label=None)
+
+
 class CarRecommendForm(forms.Form):
     """ This is the car recommendation form """
     make = forms.CharField(required=False)

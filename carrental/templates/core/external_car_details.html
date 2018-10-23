@@ -2,8 +2,8 @@
 {% block title %} {{ car.make }} {{ car.model }} {{ car.series }} {{ car.series_year }} {% endblock %}
 {% block content %}
 <div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em;">
-    <div class="entity-left-content" style="width: 48%; display: inline-block">
         <!-- FIXME Styling -->
+    <div class="entity-left-content" style="width: 48%; display: inline-block">
         <div class="detail-head">Make</div> <div class="detail-body">${{ car.make }}</div>
         <div class="detail-head">Model</div> <div class="detail-body">${{ car.model }}</div>
         <div class="detail-head">Series/Year</div> <div class="detail-body">{{ car.series }}/{{ car.series_year }}</div>
