@@ -4,7 +4,7 @@ import sys
 import os
 import django
 
-project_dir = "/Users/deanm/source/repos/djangoWebsite/carrental/"
+project_dir = "Users\deanm\Desktop\code\repos\django\IFB299\carrental\Data\dataCleaning"
 
 sys.path.append(project_dir)
 
