@@ -11,7 +11,6 @@
             {% csrf_token %}
             <div class="pt-2 pb-4">
                 <div class="py-2">
-                    {% csrf_token %}
                     {{ form.name.errors }}
                     <label for="{{ form.name.id_for_label }}">Name</label>
                     {{ form.name|includecss:"form-control" }}

@@ -10,7 +10,27 @@
         <form action="" method="post">
             {% csrf_token %}
             <div class="pt-2 pb-4">
-                {{ form }}
+                <div class="py-2">
+                    {% csrf_token %}
+                    {{ form.customer.errors }}
+                    <label for="{{ form.customer.id_for_label }}">Customer</label>
+                    {{ form.customer|includecss:"form-control" }}
+                </div>
+                <div class="py-2">
+                    {{ form.car.errors }}
+                    <label for="{{ form.car.id_for_label }}">Car</label>
+                    {{ form.car|includecss:"form-control" }}
+                </div>
+                <div class="py-2">
+                    {{ form.store.errors }}
+                    <label for="{{ form.store.id_for_label }}">Store</label>
+                    {{ form.store|includecss:"form-control" }}
+                </div>
+                <div class="py-2">
+                    {{ form.time.errors }}
+                    <label for="{{ form.time.id_for_label }}">Time</label>
+                    {{ form.time|includecss:"form-control" }}
+                </div>
                 <div class="p-2">
                     <input type="submit" value="Submit" class="btn btn-primary pl-auto" style="height: 38px; float: right;">
                 </div>
