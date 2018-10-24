@@ -5,7 +5,6 @@ django-bootstrap-datepicker-plus
 django-bootstrap3-datepicker
 django-bootstrap3-datetimepicker
 django-bootstrap4
-django-datetime-widget
 django-forms-bootstrap
 django-graphos
 django-heroku
