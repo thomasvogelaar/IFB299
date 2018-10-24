@@ -171,6 +171,13 @@ class CustomerUpdateForm(generic.edit.UpdateView):
         return form
 
 
+class TransactionCreateForm(generic.edit.CreateView):
+    """ Represents the transaction create form view. """
+    model = Transaction
+    fields = ['customer', 'car', 'store', 'time']
+    success_url = '/transactions?createsuccess=true'
+
+
 @login_required
 @permission_required("core.view_transaction")
 def transactionlist(request):

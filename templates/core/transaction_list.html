@@ -7,7 +7,10 @@
     google.load("visualization", "1", {packages:["corechart"]});
 </script>
 {{ form.media }}
-<h3 class="pl-4 pt-2">Transactions</h3>
+<div class="px-2 d-flex mt-auto align-items-center justify-content-between">
+    <h3 class="pl-4 pt-2">Transactions</h3>
+    <a href="transactions/create"><button class="btn btn-primary mr-3" style="height: 38px;">Create</button></a>
+</div>
 <div class="transaction-content pl-4">
     <div class="transaction-criteria">
         <form action="/transactions" autocomplete="off" method="get">
