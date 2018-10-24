@@ -1,0 +1,21 @@
+{% extends "../base.html" %}
+{% load includecss %}
+{% block nav-customers %}<a class="nav-link active" href="/customers">Customers</a>{% endblock %}
+
+{% block content %}
+<div class="mx-4">
+    <div style="max-width: 900px;" class="mx-auto">
+        <h1 class="pt-3">Create Transaction</h1>
+        {{ form.media }}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="pt-2 pb-4">
+                {{ form }}
+                <div class="p-2">
+                    <input type="submit" value="Submit" class="btn btn-primary pl-auto" style="height: 38px; float: right;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
