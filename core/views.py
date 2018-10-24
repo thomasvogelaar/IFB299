@@ -181,6 +181,7 @@ class TransactionCreateForm(generic.edit.CreateView):
         if form_class is None: form_class = self.get_form_class()
         form = super(TransactionCreateForm, self).get_form(form_class)
         form.fields['time'].widget = forms.SplitDateTimeWidget()
+        return form
 
 
 @login_required
