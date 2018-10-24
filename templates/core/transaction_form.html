@@ -31,6 +31,11 @@
                     <label for="{{ form.time.id_for_label }}">Time</label>
                     {{ form.time }}
                 </div>
+                <div class="py-2">
+                    {{ form.type.errors }}
+                    <label for="{{ form.type.id_for_label }}">Type</label>
+                    {{ form.type|includecss:"form-control" }}
+                </div>
                 <div class="p-2">
                     <input type="submit" value="Submit" class="btn btn-primary pl-auto" style="height: 38px; float: right;">
                 </div>
