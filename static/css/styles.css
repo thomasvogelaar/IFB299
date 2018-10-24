@@ -16,7 +16,7 @@
 }
 
 .login-main {
-    background: url('/static/images/loginbackground.jpg');
+    background: url('/static/images/slider.jpg');
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;

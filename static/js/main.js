@@ -138,7 +138,7 @@ function singlePageNav() {
         scrollItems = menuItems.map(function () {
 			var selector = $(this).attr("href");
 			if (selector.charAt(0) == '#') {
-				var item = $();
+				var item = $(selector);
 				if (item.length) {
 					return item;
 				}
