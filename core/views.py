@@ -50,6 +50,7 @@ class StoreDetailView(generic.DetailView):
 
 class ExternalCarListView(generic.ListView):
     """ Represents the external car list view. Extends the generic list view class. """
+    model = Car
     template_name = 'core/external_car_list.html'
     context_object_name = 'car_list'
     paginate_by = 10
