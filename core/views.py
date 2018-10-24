@@ -10,8 +10,7 @@ from .forms import TransactionsGetForm, CarRecommendForm, ExternalStoreSelectFor
 from .helpers.recommend import apply_filters
 from datetime import datetime, timedelta, time
 from .helpers.transactions import create_chart, get_transactions_by_dates
-from bootstrap_datepicker_plus import DatePickerInput
-from datetimewidget.widgets import DateTimeWidget
+from bootstrap_datepicker_plus import DatePickerInput, DateTimePickerInput
 
 
 def index(request):
@@ -181,7 +180,7 @@ class TransactionCreateForm(generic.edit.CreateView):
     def get_form(self, form_class=None):
         if form_class is None: form_class = self.get_form_class()
         form = super(TransactionCreateForm, self).get_form(form_class)
-        form.fields['time'].widget = DateTimeWidget(bootstrap_version=4)
+        form.fields['time'].widget = DateTimePickerInput()
         return form
 
 

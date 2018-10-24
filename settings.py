@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap_datepicker_plus',
     'bootstrap4',
-    'graphos',
-    'datetimewidget'
+    'graphos'
 ]
 
 MIDDLEWARE = [
