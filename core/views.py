@@ -174,7 +174,7 @@ class CustomerUpdateForm(generic.edit.UpdateView):
 class TransactionCreateForm(generic.edit.CreateView):
     """ Represents the transaction create form view. """
     model = Transaction
-    fields = ['customer', 'car', 'store', 'time']
+    fields = ['customer', 'car', 'store', 'time', 'type']
     success_url = '/transactions?createsuccess=true'
 
     def get_form(self, form_class=None):
