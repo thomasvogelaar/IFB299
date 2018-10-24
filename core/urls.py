@@ -35,6 +35,6 @@ urlpatterns = [
         permission_required("core.view_customer")
         (login_required(views.CustomerUpdateForm.as_view())), name='customerupdateform'),
     path('transactions', views.transactionlist, name='transactionlist'),
-    path('transactions/create', views.TransactionCreateForm.as_view(), name='transactioncreateform')
+    path('transactions/create', views.TransactionCreateForm.as_view(), name='transactioncreateform'),
     path('recommend-car', views.recommend_car, name="recommendcar"),
 ]
