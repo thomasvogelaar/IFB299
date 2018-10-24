@@ -177,6 +177,11 @@ class TransactionCreateForm(generic.edit.CreateView):
     fields = ['customer', 'car', 'store', 'time']
     success_url = '/transactions?createsuccess=true'
 
+    def get_form(self, form_class=None):
+        if form_class is None: form_class = self.get_form_class()
+        form = super(TransactionCreateForm, self).get_form(form_class)
+        form.fields['time'].widget = forms.SplitDateTimeWidget()
+
 
 @login_required
 @permission_required("core.view_transaction")
