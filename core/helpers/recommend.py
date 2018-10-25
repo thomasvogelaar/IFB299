@@ -4,15 +4,15 @@ import datetime
 # Filters the car list by request parameters
 def apply_filters(request: HttpRequest, cars: list):
     cars = filter_cars(cars, "make", request.GET.get("make"))
-    cars = filter_cars(cars, "model", request.GET.get("model"))
-    cars = filter_cars(cars, "series_year", request.GET.get("car_age"))
-    cars = filter_cars(cars, "enginesize", request.GET.get("engine_size"))
-    cars = filter_cars(cars, "fuelsystem", request.GET.get("fuel_system"))
-    cars = filter_cars(cars, "power", request.GET.get("power"))
-    cars = filter_cars(cars, "seats", request.GET.get("seats"))
-    cars = filter_cars(cars, "bodyType", request.GET.get("body_type"))
-    cars = filter_cars(cars, "drive", request.GET.get("drive"))
-    cars = filter_cars(cars, "wheelbase", request.GET.get("wheelbase"))
+    # cars = filter_cars(cars, "model", request.GET.get("model"))
+    # cars = filter_cars(cars, "series_year", request.GET.get("car_age"))
+    # cars = filter_cars(cars, "enginesize", request.GET.get("engine_size"))
+    # cars = filter_cars(cars, "fuelsystem", request.GET.get("fuel_system"))
+    # cars = filter_cars(cars, "power", request.GET.get("power"))
+    # cars = filter_cars(cars, "seats", request.GET.get("seats"))
+    # cars = filter_cars(cars, "bodyType", request.GET.get("body_type"))
+    # cars = filter_cars(cars, "drive", request.GET.get("drive"))
+    # cars = filter_cars(cars, "wheelbase", request.GET.get("wheelbase"))
     return cars
 
 def filter_cars(collection: list, field: str, value: str):
@@ -32,11 +32,12 @@ def filter_cars(collection: list, field: str, value: str):
         values.remove(">")
     else:
         check_type = "eq"
-    
+        print(collection)
+    valid_items = []
     for item in collection:
-        if not check_val(check_type, getattr(item, field), values, isAge):
-            collection.remove(item)
-    return collection
+        if  check_val(check_type, getattr(item, field), values, isAge):
+            valid_items.append(item)
+    return valid_items
 
 def check_val(check_type: str, value, constraints: list, isAge: bool):
     if isAge:
@@ -50,4 +51,4 @@ def check_val(check_type: str, value, constraints: list, isAge: bool):
     elif (check_type == "gt"):
         return int(value) > int(constraints[0])
     else:
-        return str(value) == str(constraints[0])
+        return str(value).lower() == str(constraints[0]).lower()
