@@ -68,8 +68,15 @@ class ExternalStoreDetailView(generic.DetailView):
     template_name = 'core/external_store_details.html'
     def get_context_data(self, **kwargs):
         context = super(ExternalStoreDetailView, self).get_context_data(**kwargs)
-        print(context)
         form = ExternalStoreSelectForm(initial={'store': context['store'].id})
+        # Getting a list of all the cars last seen at this store. This is unusually complicated
+        # as django doesn't like multi-level association based queries, especially if you also want to filter the associations.
+        store_cars = []
+        for car in Car.objects.all():
+            latest_transaction = car.transaction_set.last()
+            if latest_transaction is not None and latest_transaction.store.id == context['store'].id:
+                store_cars.append(car)
+        context['cars'] = store_cars
         context['form'] = form
         return context
 

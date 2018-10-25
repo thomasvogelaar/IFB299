@@ -31,8 +31,19 @@ ALLOWED_HOSTS = []
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 
-DATABASES = { 'default' : dj_database_url.config()}
-
+if (dj_database_url.config()):
+    DATABASES = { 'default' : dj_database_url.config()}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'carrental',
+            'USER': 'root',
+            'PASSWORD': 'root',
+            'HOST': '127.0.0.1',
+            'PORT': '3306'
+        }
+    }
 
 # Application definition
 

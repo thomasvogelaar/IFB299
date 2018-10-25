@@ -45,6 +45,7 @@
 .entity-left-content {
     text-align: left;
     padding-left: 15px; 
+    word-break: break-word;
 }
 
 @media (min-width: 768px) {

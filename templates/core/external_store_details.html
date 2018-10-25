@@ -9,15 +9,50 @@
 </div>
 <div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em; width: 100%;">
         <!-- FIXME Styling -->
-    <div class="entity-left-content" style="width: 48%; display: inline-block">
+    <div class="entity-left-content" style="width: 200px; display: inline-block">
         <div class="detail-head">Store</div> <div class="detail-body">{{ store.name }}</div>
         <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
         <div class="detail-head">City</div> <div class="detail-body">{{ store.city }}</div>
-    </div>
-    <div class="entity-left-content" style="width: 48%; display: inline-block; vertical-align: top;">
         <div class="detail-head">State</div> <div class="detail-body">{{ store.state }}</div>
         <div class="detail-head">Phone</div> <div class="detail-body">{{ store.phone }}</div>
     </div>
-    LIST OF AVAILABLE CARS HERE
+    <div class="entity-left-content" style="width: calc(100% - 230px); display: inline-block; vertical-align: top;">
+        <h2 style="margin-top:0px">Available Vehicles</h3>
+        {% if cars %}
+            <div class="table-responsive pl-4 pr-4 pt-1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Car Id</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Series</th>
+                            <th>Year</th>
+                            <th>Price</th>
+                            <th>Seats</th>
+                            <th>Body Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for car in cars %}
+                        <tr>
+                            <td><a href="cars/{{ car.id }}">{{ car.id }}</a></td>
+                            <td>{{ car.make }}</td>
+                            <td>{{ car.model }}</td>
+                            <td>{{ car.series }}</td>
+                            <td>{{ car.series_year }}</td>
+                            <td>{{ car.price }}</td>
+                            <td>{{ car.seats }}</td>
+                            <td>{{ car.bodyType }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% include "../external_pagination.html" %}
+        {% else %}
+        There are no cars available at this location
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

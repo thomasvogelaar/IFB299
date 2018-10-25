@@ -90,6 +90,8 @@ class Customer(models.Model):
 
 # Represents a transaction within the system
 class Transaction(models.Model):
+    class Meta:
+        get_latest_by = 'time'
     customer = models.ForeignKey(Customer, on_delete = models.CASCADE)
     car = models.ForeignKey(Car, on_delete = models.CASCADE)
     store = models.ForeignKey(Store, on_delete = models.CASCADE)
@@ -101,3 +103,4 @@ class Transaction(models.Model):
     )
     def __str__(self):
         return 'Transaction ID' + str(self.id)
+
