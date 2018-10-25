@@ -12,7 +12,7 @@ class TransactionsGetForm(forms.Form):
 
 class ExternalStoreSelectForm(forms.Form):
     """ This form is found at the top of the external store page """
-    store = forms.ModelChoiceField(queryset=Store.objects.all(), empty_label=None)
+    store = forms.ModelChoiceField(queryset=Store.objects.all(), empty_label=None, widget=forms.Select(attrs={'onchange': 'this.form.submit();'}))
 
 
 class CarRecommendForm(forms.Form):

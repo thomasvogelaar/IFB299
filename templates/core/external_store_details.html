@@ -2,9 +2,8 @@
 {% block title %} {{ store.name }} {% if store == None %} No Stores Available {% endif %}{% endblock %}
 {% block content %}
 <div style="padding-right: 2em; text-align: right;">
-    <form action="" method="GET">
+    <form action="" method="GET" id="store_select">
         {{ form }}
-        <button type="submit">Change</button>
     </form>
 </div>
 <div style="padding-left: 0.5em; padding-right: 0.5em; padding-bottom: 1em; width: 100%;">
