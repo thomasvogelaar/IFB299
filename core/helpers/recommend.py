@@ -32,7 +32,6 @@ def filter_cars(collection: list, field: str, value: str):
         values.remove(">")
     else:
         check_type = "eq"
-        print(collection)
     valid_items = []
     for item in collection:
         if  check_val(check_type, getattr(item, field), values, isAge):

@@ -33,6 +33,7 @@ class CarRecommendForm(forms.Form):
         ("BETWEEN 2553 AND 2877", "Medium"),
         ("> 2877", "Large"))
     car_age.choices = (
+        ("", "Any"),
         ("< 5", "< 5 years"),
         ("BETWEEN 5 AND 10", "5 - 10 years"),
         ("BETWEEN 10 AND 15", "10 - 15 years"),
