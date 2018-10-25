@@ -43,13 +43,11 @@
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right animate">
 						<li><a href="">Home</a></li>
-						<li><a href="#services">Services</a></li>
 						<li><a href="/recommend-car">Find A Vehicle</a></li>
 						<li><a href="/browsecars">Vehicles</a></li>
 						<li><a href="/storedetails/1">Our Stores</a></li>
-						<li><a href="/accounts/login">Sign In</a></li>
-						<li><a href="/accounts/logout">Logout</a></li>
-						<li><a href="#contact">Contact</a></li>
+						{% if not user.is_authenticated %}<li><a href="/accounts/login">Sign In</a></li>{% endif %}
+						{% if user.is_authenticated %}<li><a href="/accounts/logout">Logout</a></li>{% endif %}
 						{% if user.is_authenticated %}<li><a href="/transactions">Dashboard</a></li>{% endif %}
 					</ul>
 				</div>
