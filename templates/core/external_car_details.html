@@ -19,6 +19,15 @@
         <div class="detail-head">Body Type</div> <div class="detail-body">{{ car.bodyType }}</div>
         <div class="detail-head">Drive</div> <div class="detail-body">{{ car.drive }}</div>
         <div class="detail-head">Wheel Base</div> <div class="detail-body">{{ car.wheelbase }}</div>
+        <div class="detail-head">Current Location</div> <div class="detail-body">
+            {% if car.transaction_set.last.type == 'PIC' %}
+                <span class="text-danger">Unavailable</span>
+            {% elif car.transaction_set.last.type == 'RET' %}
+                <a href="/storedetails/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
+            {% else %}
+                N/A
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
