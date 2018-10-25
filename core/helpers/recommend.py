@@ -4,15 +4,15 @@ import datetime
 # Filters the car list by request parameters
 def apply_filters(request: HttpRequest, cars: list):
     cars = filter_cars(cars, "make", request.GET.get("make"))
-    # cars = filter_cars(cars, "model", request.GET.get("model"))
-    # cars = filter_cars(cars, "series_year", request.GET.get("car_age"))
-    # cars = filter_cars(cars, "enginesize", request.GET.get("engine_size"))
-    # cars = filter_cars(cars, "fuelsystem", request.GET.get("fuel_system"))
-    # cars = filter_cars(cars, "power", request.GET.get("power"))
-    # cars = filter_cars(cars, "seats", request.GET.get("seats"))
-    # cars = filter_cars(cars, "bodyType", request.GET.get("body_type"))
-    # cars = filter_cars(cars, "drive", request.GET.get("drive"))
-    # cars = filter_cars(cars, "wheelbase", request.GET.get("wheelbase"))
+    cars = filter_cars(cars, "model", request.GET.get("model"))
+    cars = filter_cars(cars, "series_year", request.GET.get("car_age"))
+    cars = filter_cars(cars, "enginesize", request.GET.get("engine_size"))
+    cars = filter_cars(cars, "fuelsystem", request.GET.get("fuel_system"))
+    cars = filter_cars(cars, "power", request.GET.get("power"))
+    cars = filter_cars(cars, "seats", request.GET.get("seats"))
+    cars = filter_cars(cars, "bodyType", request.GET.get("body_type"))
+    cars = filter_cars(cars, "drive", request.GET.get("drive"))
+    cars = filter_cars(cars, "wheelbase", request.GET.get("wheelbase"))
     return cars
 
 def filter_cars(collection: list, field: str, value: str):
