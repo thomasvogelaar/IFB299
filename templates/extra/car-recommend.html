@@ -31,7 +31,7 @@
                     <tbody>
                     {% for car in recommended_cars %}
                         <tr>
-                            <td><a href="cars/{{ car.id }}">{{ car.id }}</a></td>
+                            <td><a href="cardetails/{{ car.id }}">{{ car.id }}</a></td>
                             <td>{{ car.make }}</td>
                             <td>{{ car.model }}</td>
                             <td>{{ car.series }}</td>
@@ -41,9 +41,9 @@
                             <td>{{ car.bodyType }}</td>
                             <td>
                                 {% if car.transaction_set.last.type == 'PIC' %}
-                                    <span class="text-danger">WITH CUSTOMER</span>
+                                    <span class="text-danger">UNAVAILABLE</span>
                                 {% elif car.transaction_set.last.type == 'RET' %}
-                                    <a href="/stores/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
+                                    <a href="/storedetails/{{car.transaction_set.last.store.id}}">{{ car.transaction_set.last.store.name }}</a>
                                 {% else %}
                                     N/A
                                 {% endif %}

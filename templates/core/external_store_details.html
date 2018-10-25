@@ -35,7 +35,7 @@
                     <tbody>
                     {% for car in cars %}
                         <tr>
-                            <td><a href="cars/{{ car.id }}">{{ car.id }}</a></td>
+                            <td><a href="/cardetails/{{ car.id }}">{{ car.id }}</a></td>
                             <td>{{ car.make }}</td>
                             <td>{{ car.model }}</td>
                             <td>{{ car.series }}</td>
@@ -50,7 +50,7 @@
             </div>
             {% include "../external_pagination.html" %}
         {% else %}
-        There are no cars available at this location
+        There are currently no cars available at this location
         {% endif %}
     </div>
 </div>
