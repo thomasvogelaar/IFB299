@@ -17,6 +17,7 @@
                         <th>City</th>
                         <th>State</th>
                         <th>Phone</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@
                         <td>{{ store.city }}</td>
                         <td>{{ store.get_state_display }}</td>
                         <td>{{ store.phone }}</td>
+                        <td><a href="stores/{{ store.id }}/edit"><i class="far fa-edit"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

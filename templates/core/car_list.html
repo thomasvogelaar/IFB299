@@ -20,6 +20,7 @@
                         <th>Seats</th>
                         <th>Body Type</th>
                         <th>Last Recorded Location</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,7 @@
                                 N/A
                             {% endif %}
                         </td>
+                        <td><a href="cars/{{ car.id }}/edit"><i class="far fa-edit"></i></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -2,7 +2,7 @@
 {% block nav-cars %}<a class="nav-link active" href="/cars">Cars</a>{% endblock %}
 {% block left-header %}
     <img src="/static/images/car.png" class="entity-image">
-    <h4 class="entity-title pb-4">{{ car.make }} {{ car.model }}</h4>
+    <h4 class="entity-title pb-4">{{ car.make }} {{ car.model }} <a href="{{ car.id }}/edit"><i class="far fa-edit"></i></a></h4>
 {% endblock %}
 {% block left-content %}
     <div class="detail-head">Series/Year</div> <div class="detail-body">{{ car.series }}/{{ car.series_year }}</div>

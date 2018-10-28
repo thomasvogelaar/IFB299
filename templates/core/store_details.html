@@ -2,7 +2,7 @@
 {% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
 {% block left-header %}
     <img src="/static/images/store.png" class="entity-image">
-    <h3 class="entity-title pb-4">{{ store.name }}</h3>
+    <h4 class="entity-title pb-4">{{ store.name }} <a href="{{ store.id }}/edit"><i class="far fa-edit"></i></a></h4>
 {% endblock %}
 {% block left-content %}    
     <div class="detail-head">Address</div> <div class="detail-body">{{ store.address }}</div>
