@@ -2,7 +2,6 @@
 <!-- Temporary bootstrap fix -->
 <style>
     .pr-1 {
-        width: 25px;
         display: inline-block;
     }
     .d-flex {
@@ -25,7 +24,7 @@
         {% endif %}
     </div>
     <div class="pr-1">
-        <button class="pag-button font-weight-bold" disabled >
+        <button class="pag-button font-weight-bold" style="font-family:initial" disabled>
             {% if page_obj %} {{ page_obj.number }} {% else %} 1 {% endif %}
         </button>
     </div>
