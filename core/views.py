@@ -158,7 +158,7 @@ class CustomerCreateForm(generic.edit.CreateView):
         """ Extending the generic createview get_form function to change the birthday form field widget. """
         if form_class is None: form_class = self.get_form_class()
         form = super(CustomerCreateForm, self).get_form(form_class)
-        form.fields['birthday'].widget = DatePickerInput()
+        form.fields['birthday'].widget = DatePickerInput(format='%d/%m/%Y')
         return form
 
 
@@ -173,7 +173,7 @@ class CustomerUpdateForm(generic.edit.UpdateView):
         """ Extending the generic updateview get_form function to change the birthday form field widget. """
         if form_class is None: form_class = self.get_form_class()
         form = super(CustomerUpdateForm, self).get_form(form_class)
-        form.fields['birthday'].widget = DatePickerInput()
+        form.fields['birthday'].widget = DatePickerInput(format='%d/%m/%Y')
         return form
 
 
@@ -186,7 +186,7 @@ class TransactionCreateForm(generic.edit.CreateView):
     def get_form(self, form_class=None):
         if form_class is None: form_class = self.get_form_class()
         form = super(TransactionCreateForm, self).get_form(form_class)
-        form.fields['time'].widget = DateTimePickerInput()
+        form.fields['time'].widget = DateTimePickerInput(format='%d/%m/%Y')
         return form
 
 
