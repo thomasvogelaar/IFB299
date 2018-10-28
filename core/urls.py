@@ -16,6 +16,9 @@ urlpatterns = [
     path('stores/<int:pk>',
         permission_required("core.view_store")
         (login_required(views.StoreDetailView.as_view())), name='storedetails'),
+    path('stores/create',
+        permission_required("core.view_store")
+        (login_required(views.StoreCreateForm.as_view())), name='storecreateform'),
     path('cars',
         permission_required("core.view_car")
         (login_required(views.CarListView.as_view())), name='carlist'),

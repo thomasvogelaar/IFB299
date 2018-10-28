@@ -1,0 +1,49 @@
+{% extends "../base.html" %}
+{% load includecss %}
+{% block nav-stores %}<a class="nav-link active" href="/stores">Stores</a>{% endblock %}
+
+{% block content %}
+<div class="mx-4">
+    <div style="max-width: 900px;" class="mx-auto">
+        <h1 class="pt-3">{% if store.id %}Edit Store (#{{ store.id }}) {% else %} Create Store {% endif %}</h1>
+        {{ form.media }}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="pt-2 pb-4">
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.name.errors }}
+                        <label for="{{ form.name.id_for_label }}">Name</label>
+                        {{ form.name|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.phone.errors }}
+                        <label for="{{ form.phone.id_for_label }}">Phone</label>
+                        {{ form.phone|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="py-2">
+                    {{ form.address.errors }}
+                    <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{ form.address|includecss:"form-control" }}
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px;">
+                        {{ form.city.errors }}
+                        <label for="{{ form.city.id_for_label }}">City</label>
+                        {{ form.city|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px">
+                        {{ form.state.errors }}
+                        <label for="{{ form.state.id_for_label }}">State:</label>
+                        {{ form.state|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="p-2">
+                    <input type="submit" value="Submit" class="btn btn-primary pl-auto" style="height: 38px; float: right;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

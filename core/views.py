@@ -190,6 +190,13 @@ class TransactionCreateForm(generic.edit.CreateView):
         return form
 
 
+class StoreCreateForm(generic.edit.CreateView):
+    """ Represents the store create form view. """
+    model = Store
+    fields = ['name', 'address', 'phone', 'city', 'state']
+    success_url = '/stores?createsuccess=true'
+
+
 @login_required
 @permission_required("core.view_transaction")
 def transactionlist(request):
