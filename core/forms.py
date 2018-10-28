@@ -5,8 +5,8 @@ from .models import Car, Customer, Store, Transaction
 class TransactionsGetForm(forms.Form):
     """ This form is found at the top of the transctions list """
     media_choices = (('table', 'Table'), ('line', 'Line Graph'), ('pie', 'Pie Graph'), ('bar', 'Bar Graph'))
-    start_date = forms.DateField(label="Start Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }, format='%d/%m/%Y'))
-    end_date = forms.DateField(label="End Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }, format='%d/%m/%Y'))
+    start_date = forms.DateField(label="Start Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }, format='%d/%m/%Y'), input_formats=['%d/%m/%Y'])
+    end_date = forms.DateField(label="End Date", widget=DatePickerInput(attrs={ 'class': 'form-control' }, format='%d/%m/%Y'), input_formats=['%d/%m/%Y'])
     media_type = forms.ChoiceField(choices=media_choices, widget=forms.Select(attrs={ 'class': 'form-control' }))
 
 

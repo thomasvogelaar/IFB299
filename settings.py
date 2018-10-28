@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import django_heroku
+from django.conf.global_settings import DATETIME_INPUT_FORMATS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -27,6 +28,8 @@ SECRET_KEY = '$9ue=iw$c!udy&r!+i0!(j)gpmov_g9c_*lg$)%s@=xbx+un9u'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+DATETIME_INPUT_FORMATS += ('%d/%m/%Y %H:%m:%s')
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url

@@ -52,9 +52,20 @@ class ExternalCarListView(generic.ListView):
     """ Represents the external car list view. Extends the generic list view class. """
     model = Car
     template_name = 'core/external_car_list.html'
-    context_object_name = 'car_list'
     paginate_by = 10
-
+    def get_context_data(self, **kwargs):
+        context = super(ExternalCarListView, self).get_context_data(**kwargs)
+        latest_transactions = []
+        for car in Car.objects.all():
+            if car.transaction_set.last() is not None:
+                latest_transactions.append(car.transaction_set.last())
+        latest_transactions.sort(key=lambda object: object.time, reverse=True)
+        cars = []
+        for transaction in latest_transactions:
+            cars.append(transaction.car)
+        context['car_list'] = cars
+        return context
+            
 
 class ExternalCarDetailView(generic.DetailView):
     """ Represents the external car details view. Extends the generic details view class. """
@@ -158,7 +169,7 @@ class CustomerCreateForm(generic.edit.CreateView):
         """ Extending the generic createview get_form function to change the birthday form field widget. """
         if form_class is None: form_class = self.get_form_class()
         form = super(CustomerCreateForm, self).get_form(form_class)
-        form.fields['birthday'].widget = DatePickerInput(format='%d/%m/%Y')
+        form.fields['birthday'] = forms.DateField(widget=DatePickerInput(format='%d/%m/%Y'), input_formats=['%d/%m/%Y'])
         return form
 
 
@@ -173,7 +184,7 @@ class CustomerUpdateForm(generic.edit.UpdateView):
         """ Extending the generic updateview get_form function to change the birthday form field widget. """
         if form_class is None: form_class = self.get_form_class()
         form = super(CustomerUpdateForm, self).get_form(form_class)
-        form.fields['birthday'].widget = DatePickerInput(format='%d/%m/%Y')
+        form.fields['birthday'] = forms.DateField(widget=DatePickerInput(format='%d/%m/%Y'), input_formats=['%d/%m/%Y'])
         return form
 
 
@@ -186,7 +197,7 @@ class TransactionCreateForm(generic.edit.CreateView):
     def get_form(self, form_class=None):
         if form_class is None: form_class = self.get_form_class()
         form = super(TransactionCreateForm, self).get_form(form_class)
-        form.fields['time'].widget = DateTimePickerInput(format='%d/%m/%Y HH:mm:ss')
+        form.fields['time'] = forms.DateTimeField(widget=DateTimePickerInput(format='%d/%m/%Y %H:%M:%S'), input_formats=['%d/%m/%Y %H:%M:%S'])
         return form
 
 
@@ -195,6 +206,7 @@ class StoreCreateForm(generic.edit.CreateView):
     model = Store
     fields = ['name', 'address', 'phone', 'city', 'state']
     success_url = '/stores?createsuccess=true'
+
 
 class StoreUpdateForm(generic.edit.UpdateView):
     """ Represents the store update form view. """
