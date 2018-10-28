@@ -1,0 +1,104 @@
+{% extends "../base.html" %}
+{% load includecss %}
+{% block nav-cars %}<a class="nav-link active" href="/cars">Cars</a>{% endblock %}
+
+{% block content %}
+<div class="mx-4">
+    <div style="max-width: 900px;" class="mx-auto">
+        <h1 class="pt-3">{% if car.id %}Edit Car (#{{ car.id }}) {% else %} Create Car {% endif %}</h1>
+        {{ form.media }}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="pt-2 pb-4">
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.make.errors }}
+                        <label for="{{ form.make.id_for_label }}">Make</label>
+                        {{ form.make|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.model.errors }}
+                        <label for="{{ form.model.id_for_label }}">Model</label>
+                        {{ form.model|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.series.errors }}
+                        <label for="{{ form.series.id_for_label }}">Series</label>
+                        {{ form.series|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.series_year.errors }}
+                        <label for="{{ form.series_year.id_for_label }}">Year</label>
+                        {{ form.series_year|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.price.errors }}
+                        <label for="{{ form.price.id_for_label }}">Price</label>
+                        {{ form.price|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.enginesize.errors }}
+                        <label for="{{ form.enginesize.id_for_label }}">Engine Size</label>
+                        {{ form.enginesize|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.fuelsystem.errors }}
+                        <label for="{{ form.fuelsystem.id_for_label }}">Fuel System</label>
+                        {{ form.fuelsystem|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.tankcapacity.errors }}
+                        <label for="{{ form.tankcapacity.id_for_label }}">Tank Capacity</label>
+                        {{ form.tankcapacity|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.power.errors }}
+                        <label for="{{ form.power.id_for_label }}">Power</label>
+                        {{ form.power|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.seats.errors }}
+                        <label for="{{ form.seats.id_for_label }}">Seat Count</label>
+                        {{ form.seats|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.standardtransmission.errors }}
+                        <label for="{{ form.standardtransmission.id_for_label }}">Transmission</label>
+                        {{ form.standardtransmission|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.bodyType.errors }}
+                        <label for="{{ form.bodyType.id_for_label }}">Body Type</label>
+                        {{ form.bodyType|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="py-2 w-50" style="padding-right:15px">
+                        {{ form.drive.errors }}
+                        <label for="{{ form.drive.id_for_label }}">Drive</label>
+                        {{ form.drive|includecss:"form-control" }}
+                    </div>
+                    <div class="py-2 w-50" style="padding-left:15px;">
+                        {{ form.wheelbase.errors }}
+                        <label for="{{ form.wheelbase.id_for_label }}">Wheelbase</label>
+                        {{ form.wheelbase|includecss:"form-control" }}
+                    </div>
+                </div>
+                <div class="p-2">
+                    <input type="submit" value="Submit" class="btn btn-primary pl-auto" style="height: 38px; float: right;">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

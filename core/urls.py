@@ -25,6 +25,9 @@ urlpatterns = [
     path('cars/<int:pk>',
         permission_required("core.view_car")
         (login_required(views.CarDetailView.as_view())), name='cardetails'),
+    path('cars/create',
+        permission_required("Core.view_car")
+        (login_required(views.CarCreateForm.as_view())), name='carcreateform'),
     path('customers',
         permission_required("core.view_customer")
         (login_required(views.CustomerListView.as_view())), name='customerlist'),

@@ -197,6 +197,12 @@ class StoreCreateForm(generic.edit.CreateView):
     success_url = '/stores?createsuccess=true'
 
 
+class CarCreateForm(generic.edit.CreateView):
+    model = Car
+    fields = ['make', 'model', 'series', 'series_year', 'price', 'enginesize', 'fuelsystem', 'tankcapacity', 'power', 'seats', 'standardtransmission', 'bodyType', 'drive', 'wheelbase']
+    success_url = '/cars?createsuccess=true'
+
+
 @login_required
 @permission_required("core.view_transaction")
 def transactionlist(request):
