@@ -196,11 +196,25 @@ class StoreCreateForm(generic.edit.CreateView):
     fields = ['name', 'address', 'phone', 'city', 'state']
     success_url = '/stores?createsuccess=true'
 
+class StoreUpdateForm(generic.edit.UpdateView):
+    """ Represents the store update form view. """
+    model = Store
+    fields = ['name', 'address', 'phone', 'city', 'state']
+    success_url = '/stores?updatesuccess=true'
+
 
 class CarCreateForm(generic.edit.CreateView):
+    """ Represents the car create form view. """
     model = Car
     fields = ['make', 'model', 'series', 'series_year', 'price', 'enginesize', 'fuelsystem', 'tankcapacity', 'power', 'seats', 'standardtransmission', 'bodyType', 'drive', 'wheelbase']
     success_url = '/cars?createsuccess=true'
+
+
+class CarUpdateForm(generic.edit.UpdateView):
+    """ Represents the car update form view. """
+    model = Car
+    fields = ['make', 'model', 'series', 'series_year', 'price', 'enginesize', 'fuelsystem', 'tankcapacity', 'power', 'seats', 'standardtransmission', 'bodyType', 'drive', 'wheelbase']
+    success_url = '/car?updatesuccess=true'
 
 
 @login_required

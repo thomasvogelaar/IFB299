@@ -19,6 +19,9 @@ urlpatterns = [
     path('stores/create',
         permission_required("core.view_store")
         (login_required(views.StoreCreateForm.as_view())), name='storecreateform'),
+    path('stores/<int:pk>/edit',
+        permission_required("core.view_store")
+        (login_required(views.StoreUpdateForm.as_view())), name='storeupdateform'),
     path('cars',
         permission_required("core.view_car")
         (login_required(views.CarListView.as_view())), name='carlist'),
@@ -28,6 +31,9 @@ urlpatterns = [
     path('cars/create',
         permission_required("Core.view_car")
         (login_required(views.CarCreateForm.as_view())), name='carcreateform'),
+    path('cars/<int:pk>/edit',
+        permission_required("core.view_car")
+        (login_required(views.CarUpdateForm.as_view())), name='carupdateform'),
     path('customers',
         permission_required("core.view_customer")
         (login_required(views.CustomerListView.as_view())), name='customerlist'),
