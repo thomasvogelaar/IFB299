@@ -186,7 +186,7 @@ class TransactionCreateForm(generic.edit.CreateView):
     def get_form(self, form_class=None):
         if form_class is None: form_class = self.get_form_class()
         form = super(TransactionCreateForm, self).get_form(form_class)
-        form.fields['time'].widget = DateTimePickerInput(format='%d/%m/%Y')
+        form.fields['time'].widget = DateTimePickerInput(format='%d/%m/%Y HH:mm:ss')
         return form
 
 
