@@ -1,4 +1,4 @@
-Customer_Name,Car_MakeName,Car_Model,Car_Series,Car_SeriesYear,Store_Name,Pickup_Or_Return_Date,Pickup_Or_Return
+﻿Customer_Name,Car_MakeName,Car_Model,Car_Series,Car_SeriesYear,Store_Name,Pickup_Or_Return_Date,Pickup_Or_Return
 Shannon H,SAAB,9000,CD 16,1993,Alexandria,20070112,Pickup
 Shannon A,AUDI,A4,B6 2.0 AVANT,2003,Alexandria,20061203,Pickup
 Maurice G,MITSUBISHI,380,DB,2005,Alexandria,20061024,Pickup
