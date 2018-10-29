@@ -36,23 +36,23 @@ def contains_nulls(row):
     return False
 
 #open the csv file
-with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="utf-8-sig") as store_csv_file:
+with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="ISO-8859-1") as store_csv_file:
     store_csv_reader = csv.DictReader(store_csv_file)
-    with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="utf-8-sig") as car_csv_file:
+    with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="ISO-8859-1") as car_csv_file:
         car_csv_reader = csv.DictReader(car_csv_file)
-        with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="utf-8-sig") as customer_csv_file:
+        with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="ISO-8859-1") as customer_csv_file:
             customer_csv_reader = csv.DictReader(customer_csv_file)
-            with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="utf-8-sig") as transaction_csv_file:
+            with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="ISO-8859-1") as transaction_csv_file:
                 transaction_csv_reader = csv.DictReader(transaction_csv_file)
            
                 #open the empty csv file 
-                with open('Data/dataCleaning/Store.csv', 'w', encoding="utf-8-sig") as store_file:
+                with open('Data/dataCleaning/Store.csv', 'w', encoding="ISO-8859-1") as store_file:
                     store_writer = csv.DictWriter(store_file, fieldnames=store, lineterminator='\n')
-                    with open('Data/dataCleaning/Car.csv', 'w', encoding="utf-8-sig") as car_file:
+                    with open('Data/dataCleaning/Car.csv', 'w', encoding="ISO-8859-1") as car_file:
                         car_writer = csv.DictWriter(car_file, fieldnames=car, lineterminator='\n')
-                        with open('Data/dataCleaning/Customer.csv', 'w', encoding="utf-8-sig") as customer_file:
+                        with open('Data/dataCleaning/Customer.csv', 'w', encoding="ISO-8859-1") as customer_file:
                             customer_writer = csv.DictWriter(customer_file, fieldnames=customer, lineterminator='\n')    
-                            with open('Data/dataCleaning/Transaction.csv', 'w', encoding="utf-8-sig") as transaction_file:
+                            with open('Data/dataCleaning/Transaction.csv', 'w', encoding="ISO-8859-1") as transaction_file:
                                 transaction_writer = csv.DictWriter(transaction_file, transaction.split(), extrasaction='ignore', lineterminator='\n')
   
                             #clean and write store csv file
@@ -104,7 +104,7 @@ with open('Data/dataCleaning/dataInStore.csv', 'r', encoding="utf-8-sig") as sto
                                     transaction_writer.writerow(row)
 
 # import store data
-storeData = csv.reader(open("Data/dataCleaning/Store.csv", encoding="utf-8-sig"), delimiter = ",")
+storeData = csv.reader(open("Data/dataCleaning/Store.csv", encoding="ISO-8859-1"), delimiter = ",")
 for row in storeData:
     if row[0] != 'create_data' and row[0] is not None and row[0] != 'NULL':
         newstore = Store()
@@ -116,7 +116,7 @@ for row in storeData:
         newstore.save()
 
 #import car data
-carData = csv.reader(open("Data/dataCleaning/Car.csv", encoding="utf-8-sig"), delimiter = ",")
+carData = csv.reader(open("Data/dataCleaning/Car.csv", encoding="ISO-8859-1"), delimiter = ",")
 for row in carData:
     if row[0] != 'create_data' and row[0] is not None and row[0] != 'NULL':
         newcar = Car()
@@ -137,7 +137,7 @@ for row in carData:
         newcar.save()
 
 #import customer data
-customerData = csv.reader(open("Data/dataCleaning/Customer.csv", encoding="utf-8-sig"), delimiter = ",")
+customerData = csv.reader(open("Data/dataCleaning/Customer.csv", encoding="ISO-8859-1"), delimiter = ",")
 for row in customerData:
     if row[0] != 'create_data' and row[0] is not None and row[0] != 'NULL':
         new_customer = Customer()
@@ -150,7 +150,7 @@ for row in customerData:
         new_customer.save()
 
 
-transactionData = csv.reader(open("Data/dataCleaning/Transaction.csv", encoding="utf-8-sig"), delimiter = ",")
+transactionData = csv.reader(open("Data/dataCleaning/Transaction.csv", encoding="ISO-8859-1"), delimiter = ",")
 # #import transaction data
 for row in transactionData:
     if contains_nulls(row):
